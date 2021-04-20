@@ -1,1 +1,1 @@
-# avenom.ru (avenom.github.io)
+# Redirect me.avenom.ru > Linktree
