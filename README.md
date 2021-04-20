@@ -1,1 +1,1 @@
-# Redirect me.avenom.ru > Linktree
+# Redirect http://me.avenom.ru > Linktree
