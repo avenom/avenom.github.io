@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Проекты on Avenom</title>
+    <link>https://avenom.ru/tags/%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/</link>
+    <description>Recent content in Проекты on Avenom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru</language>
+    <lastBuildDate>Sat, 12 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://avenom.ru/tags/%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Установка WireGuard VPN на VPS-хостинг</title>
+      <link>https://avenom.ru/posts/wireguard/</link>
+      <pubDate>Sat, 12 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://avenom.ru/posts/wireguard/</guid>
+      <description>WireGuard – самый актуальный и быстрый VPN-протокол на сегодняшний день. Обеспечивает максимальную скорость работы и надежную криптографическую защиту.
+1. VPS-хостинг и клиенты VPS-хостинг желательно выбирать в Европе, но сейчас оплатить его уже будет проблематично. Можно подобрать хостинг на сайтах VPS.today и Hostings.info в России с серверами в Европе (например в Нидерландах), главное выбрать сервер с KVM-виртуализацией и наличием канала минимум 100 Мбит/с с безлимитным трафиком или с его приличным объемом.</description>
+    </item>
+    
+    <item>
+      <title>Мини-плеер Spotibar</title>
+      <link>https://avenom.ru/posts/spotibar/</link>
+      <pubDate>Sun, 09 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://avenom.ru/posts/spotibar/</guid>
+      <description>Мини-плеер для десктопного клиента Spotify для Windows в виде скина для Rainmeter.
+Spotibar Mini  Запуск Spotify по иконке, сворачивается обратно в иконку, когда Spotify не запущен Клик по текущему треку и исполнителю открывает окно Spotify (для правильной работы сворачивайте окно, а не закрывайте). Кнопки управления: Предыдущий трек Плей/Пауза Следующий трек Регулировка громкости колесом мыши при наведении на плеер, правый клик выключает звук  Spotibar Max  Запуск Spotify по иконке, сворачивается обратно в иконку, когда Spotify не запущен Клик по текущему треку и исполнителю открывает окно Spotify (для правильной работы сворачивайте окно, а не закрывайте).</description>
+    </item>
+    
+  </channel>
+</rss>

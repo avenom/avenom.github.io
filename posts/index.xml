@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Avenom</title>
+    <link>https://avenom.ru/posts/</link>
+    <description>Recent content in Posts on Avenom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru</language>
+    <lastBuildDate>Sat, 12 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://avenom.ru/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Установка WireGuard VPN на VPS-хостинг</title>
+      <link>https://avenom.ru/posts/wireguard/</link>
+      <pubDate>Sat, 12 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://avenom.ru/posts/wireguard/</guid>
+      <description>WireGuard – самый актуальный и быстрый VPN-протокол на сегодняшний день. Обеспечивает максимальную скорость работы и надежную криптографическую защиту.
+1. VPS-хостинг и клиенты VPS-хостинг желательно выбирать в Европе, но сейчас оплатить его уже будет проблематично. Можно подобрать хостинг на сайтах VPS.today и Hostings.info в России с серверами в Европе (например в Нидерландах), главное выбрать сервер с KVM-виртуализацией и наличием канала минимум 100 Мбит/с с безлимитным трафиком или с его приличным объемом.</description>
+    </item>
+    
+    <item>
+      <title>Свой VPN-сервер в Amnezia VPN</title>
+      <link>https://avenom.ru/posts/amnezia/</link>
+      <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://avenom.ru/posts/amnezia/</guid>
+      <description>Amnezia VPN - бесплатный сервис и клиент для поднятия своего VPN-сервера без какого-либо ручного взаимодействия с терминалом. Клиент Amnezia VPN позволяет автоматически развернуть VPN-сервер на любых серверах с KVM-виртуализацией на ОС Ubuntu 18.04 и Debian 10.
+Можете подобрать VPS-хостинг на сайтах VPS.today и Hostings.info с серверами в Европе (например в Нидерландах) или вступить в группу Amnezia VPN в телеграме, где люди делятся своим опытом с выбором хостинга, найдете через поиск по ключевым словам или по тегу #тествпс.</description>
+    </item>
+    
+    <item>
+      <title>Бесплатные VPN-сервисы</title>
+      <link>https://avenom.ru/posts/free-vpn/</link>
+      <pubDate>Wed, 02 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://avenom.ru/posts/free-vpn/</guid>
+      <description>VPN с бесплатными тарифами ProtonVPN
+Бесплатный тариф дает доступ к 108 серверам в 3 странах, 53 из которых находятся в Нидерландах. На моем домашнем 500-мбитном тарифе выдает скорость примерно 250-350 Мбит/с.
+Windscribe
+10 гб трафика в месяц, можно получить 30 гб с восхитительным промо-кодом ПИЗДЕЦ.
+AdGuard VPN
+3 гб трафика в месяц, средняя скорость 16-23 Мбит/с.
+Psiphon
+Инструмент обхода интернет-цензуры от Psiphon Inc. Использует VPN, SSH и HTTP-прокси для доступа к заблокированным ресурсам.</description>
+    </item>
+    
+    <item>
+      <title>Мини-плеер Spotibar</title>
+      <link>https://avenom.ru/posts/spotibar/</link>
+      <pubDate>Sun, 09 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://avenom.ru/posts/spotibar/</guid>
+      <description>Мини-плеер для десктопного клиента Spotify для Windows в виде скина для Rainmeter.
+Spotibar Mini  Запуск Spotify по иконке, сворачивается обратно в иконку, когда Spotify не запущен Клик по текущему треку и исполнителю открывает окно Spotify (для правильной работы сворачивайте окно, а не закрывайте). Кнопки управления: Предыдущий трек Плей/Пауза Следующий трек Регулировка громкости колесом мыши при наведении на плеер, правый клик выключает звук  Spotibar Max  Запуск Spotify по иконке, сворачивается обратно в иконку, когда Spotify не запущен Клик по текущему треку и исполнителю открывает окно Spotify (для правильной работы сворачивайте окно, а не закрывайте).</description>
+    </item>
+    
+    <item>
+      <title>Человек, которого не было</title>
+      <link>https://avenom.ru/posts/man/</link>
+      <pubDate>Sat, 08 Jan 2022 18:32:00 +0000</pubDate>
+      
+      <guid>https://avenom.ru/posts/man/</guid>
+      <description>Пост был опубликован на Пикабу. Буду признателен если поставите там плюс и оставите свой комментарий.
+Это мой самый личный пост в сети, в котором я открыто делюсь историей своей 35-летней жизни с неизлечимым недугом, а также некоторыми личными мыслями и ощущениями на этот счет.
+Я пишу о себе не ради жалости и сочувствия, скорее наоборот, для того, чтобы рассказать о возможности продолжать жить, находясь в условиях, которые могут показаться непреодолимыми препятствиями.</description>
+    </item>
+    
+    <item>
+      <title>Проекты</title>
+      <link>https://avenom.ru/posts/projects/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:01 +0000</pubDate>
+      
+      <guid>https://avenom.ru/posts/projects/</guid>
+      <description>Софт  Spotibar - мини-плеер для десктопного клиента Spotify.  Гайды  WireGuard VPN - установка WireGuard VPN на VPS-хостинг.  </description>
+    </item>
+    
+    <item>
+      <title>Донат</title>
+      <link>https://avenom.ru/posts/donate/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://avenom.ru/posts/donate/</guid>
+      <description>Если вы захотите меня поддержать, то вы можете оформить подписку на мой Boosty. Все подписчики будут получать доступ к моим новым постам на три дня раньше чем в этом блоге.
+ЮMoney: 41001824920727
+VISA: 4048415026765855
+Спасибо, что вы меня читаете!</description>
+    </item>
+    
+    <item>
+      <title>О блоге</title>
+      <link>https://avenom.ru/posts/about/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://avenom.ru/posts/about/</guid>
+      <description>В нынешнем цифровом гетто потихоньку отхожу от централизированных сервисов в пользу привычного хостинга. Изначально планировал разместить блог на VPS-хостинге, где у меня стоит WireGuard VPN, но подумал для статического блога на Hugo будет достаточно GitHub Pages с прикрученным доменом.
+Генератор статических сайтов Hugo удобен для тех, кто хочет собирать сайт на локальной машине. Hugo доступен в виде одного бинарного файла Hugo.exe. Не нужно ставить никакого дополнительного ПО, Hugo разворчивается через командую строку, в итоге имеем минимальное количество файлов, а это удобно для быстрого бэкапа и разворачивания на другой машине.</description>
+    </item>
+    
+  </channel>
+</rss>
