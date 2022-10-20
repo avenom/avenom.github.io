@@ -217,7 +217,7 @@ chmod +x wireguard-install.sh
 <p>Заходим <a href="https://whatismyipaddress.com/">сюда</a> и видим IP-адрес и страну вашего сервера.</p>
 <p>Проверяем доступ к заблокированным <a href="https://twitter.com/">сайтам</a> и замеряем <a href="https://speedcheck.org/ru/">скорость</a>.</p>
 <h2 id="6-настройка-и-подключение-в-роутерах-keenetic">6. Настройка и подключение в роутерах Keenetic</h2>
-<p>В роутерах Keenetic можно установить компонент WireGuard и пустить весь трафик по VPN.</p>
+<p>В роутерах Keenetic можно установить компонент WireGuard и пустить весь трафик по VPN или только выбранные устройства.</p>
 <ol>
 <li>
 <p>Переходим в админке роутера в «<strong>Управление</strong>» &gt; «<strong>Общие настройки</strong>» &gt; «<strong>Изменить набор компонентов</strong>», ищем «<strong>Сетевые функции</strong>», выбираем «<strong>Wireguard VPN</strong>» и жмем «<strong>Установить обновление</strong>».</p>
@@ -228,10 +228,11 @@ chmod +x wireguard-install.sh
 <li>
 <p>Отредактируем соединение, отмечаем «<strong>Использовать для выхода в интернет</strong>» и оставляем DNS-серверы от AdGuard или прописываем в «<strong>DNS 1</strong>»: 1.1.1.1 и «<strong>DNS 2</strong>»: 1.0.0.1 от Cloudflare.</p>
 </li>
-<li>
-<p>Переходим в «<strong>Интернет</strong>» &gt; «<strong>Приоритеты подключений</strong>» и переносим соединение Wireguard над всеми другими подключениями и нажимаем «<strong>Сохранить</strong>», затем переходим в «<strong>Другие подключения</strong>» и пробуем подключиться к VPN.</p>
-</li>
 </ol>
+<p><strong>Весь трафик по VPN:</strong></p>
+<p>Переходим в «<strong>Интернет</strong>» &gt; «<strong>Приоритеты подключений</strong>» и переносим соединение Wireguard над всеми другими подключениями и нажимаем «<strong>Сохранить</strong>», затем переходим в «<strong>Другие подключения</strong>» и активируем подключение к Wireguard.</p>
+<p><strong>Выбранные устройства по VPN:</strong></p>
+<p>Переходим в «<strong>Интернет</strong>» &gt; «<strong>Приоритеты подключений</strong>» и жмем «<strong>Добавить политику</strong>», пишем имя Wireguard, отмечаем справа подключение Wireguard и жмем «<strong>Сохранить</strong>». Переходим во вкладку «<strong>Применение политик</strong>», жмем «<strong>Показать все объекты</strong>» и выбираем устройство, которое будем пускать по Wireguard VPN и в «<strong>Переместить в</strong>» выбираем Wireguard, жмем «<strong>Подтвердить</strong>», затем переходим в «<strong>Другие подключения</strong>» и активируем подключение к Wireguard.</p>
 
         </p>
 	
