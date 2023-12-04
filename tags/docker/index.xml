@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on Avenom</title>
+    <link>https://avenom.ru/tags/docker/</link>
+    <description>Recent content in Docker on Avenom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru</language>
+    <lastBuildDate>Mon, 04 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://avenom.ru/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker Compose для Synology DSM 7.2</title>
+      <link>https://avenom.ru/posts/synology-docker-compose/</link>
+      <pubDate>Mon, 04 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://avenom.ru/posts/synology-docker-compose/</guid>
+      <description>В Synology DSM 7.2 пакет Docker получил свое логическое развитие и трансформировался в новый Container Manager с поддержкой проектов Docker Compose, которые позволяют одним конфигурационным файлом скачивать и разворачивать все необходимые для установки образы и контейнеры.
+Создал на гитхабе репозиторий с проверенными на работоспособность проектами Docker Compose для разных сервисов с непересекающимися друг с другом локальными портами. Если у вас эти порты будут заняты, то можете поменять на свободные. Например в 8080:80 локальный порт - 8080.</description>
+    </item>
+    
+  </channel>
+</rss>
