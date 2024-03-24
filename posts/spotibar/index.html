@@ -146,21 +146,14 @@
 
     <div class="post-content">
         <p>
-            <p><a href="/posts/spotibar-01.gif"><img src="/posts/spotibar-01.gif" alt=""></a></p>
+            <p><a href="/posts/spotibar-01.png"><img src="/posts/spotibar-01.png" alt=""></a></p>
 <p>Мини-плеер для десктопного клиента Spotify для Windows в виде скина для Rainmeter.</p>
-<h3 id="spotibar-mini">Spotibar Mini</h3>
+<h3 id="spotibar">Spotibar</h3>
 <ul>
 <li>Запуск Spotify по иконке, сворачивается обратно в иконку, когда Spotify не запущен</li>
 <li>Клик по текущему треку и исполнителю открывает окно Spotify (для правильной работы сворачивайте окно, а не закрывайте).</li>
-<li>Кнопки управления:  <code>Предыдущий трек</code> <code>Плей/Пауза</code> <code>Следующий трек</code></li>
-<li>Регулировка громкости колесом мыши при наведении на плеер, правый клик выключает звук</li>
-</ul>
-<h3 id="spotibar-max">Spotibar Max</h3>
-<ul>
-<li>Запуск Spotify по иконке, сворачивается обратно в иконку, когда Spotify не запущен</li>
-<li>Клик по текущему треку и исполнителю открывает окно Spotify (для правильной работы сворачивайте окно, а не закрывайте).</li>
-<li>Кнопки управления:  <code>Предыдущий трек</code> <code>Плей/Пауза</code> <code>Следующий трек</code></li>
-<li>Кнопки управления при наведении на обложку:  <code>Лайк</code> <code>Повторять трек</code> <code>Перемешать треки</code></li>
+<li>Кнопки управления: <code>Предыдущий трек</code> <code>Плей/Пауза</code> <code>Следующий трек</code></li>
+<li>Кнопки управления при наведении на обложку: <code>Повторять трек</code> <code>Перемешать треки</code></li>
 <li>Регулировка громкости колесом мыши при наведении на плеер, правый клик выключает звук</li>
 <li>Прогресс трека и версия с фоном адаптируются под цвет обложки</li>
 </ul>
@@ -171,16 +164,8 @@
 <li>Установите <a href="https://rainmeter.net">Rainmeter</a></li>
 <li>Установите скин <a href="https://disk.yandex.ru/d/xzrAlCRfVTaJHw">Spotibar</a>, перезапустите Rainmeter и активируйте скин</li>
 </ol>
-<p>Для работы Spotibar Max требуется установка Spicetify:</p>
-<p>В поиске Windows 10/11 наберите PowerShell и запустите Windows PoweShell. В открывшемся окне терминала выполните по порядку следующие команды:</p>
-<pre tabindex="0"><code>Invoke-WebRequest -UseBasicParsing &#34;https://raw.githubusercontent.com/khanhas/spicetify-cli/master/install.ps1&#34; | Invoke-Expression
-</code></pre><pre tabindex="0"><code>spicetify
-</code></pre><pre tabindex="0"><code>spicetify config extensions webnowplaying.js
-</code></pre><pre tabindex="0"><code>spicetify config inject_css 0 replace_colors 0
-</code></pre><pre tabindex="0"><code>spicetify backup apply
-</code></pre><p>Если клиент Spotify обновится, то вы должны удалить Spicetify командой <code>spicetify restore</code> и установить Spicetify заново.</p>
 <h3 id="настройка">Настройка</h3>
-<p>Закройте в Rainmeter все стандартные скины illustro и выберите Spotibar &gt; Spotibar Mini.ini.</p>
+<p>Закройте в Rainmeter все стандартные скины illustro и выберите Spotibar &gt; Spotibar.ini.</p>
 <p>Позиция: Всегда поверх окон</p>
 <ul>
 <li><input disabled="" type="checkbox"> Пропускать клики</li>
