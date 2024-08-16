@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FFC107;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Установка и настройка Cloudflare Tunnel для Synology NAS</title>
+    <meta name="description" content="">
+    <meta name="keywords" content='блог, Проекты, Synology, Docker, Cloudflare, Гайды'>
+
+    <meta property="og:url" content="https://avenom.ru/posts/synology-cloudflare-tunnel/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Установка и настройка Cloudflare Tunnel для Synology NAS">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="/posts/synology-cloudflare-tunnel.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Установка и настройка Cloudflare Tunnel для Synology NAS">
+    <meta name="twitter:description" content="">
+    <meta property="twitter:domain" content="https://avenom.ru/posts/synology-cloudflare-tunnel/">
+    <meta property="twitter:url" content="https://avenom.ru/posts/synology-cloudflare-tunnel/">
+    <meta name="twitter:image" content="/posts/synology-cloudflare-tunnel.png">
+
+    
+
+    <link rel="canonical" href="https://avenom.ru/posts/synology-cloudflare-tunnel/" />
+
+    <link rel="stylesheet" type="text/css" href="https://avenom.ru//css/normalize.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" type="text/css" href="https://avenom.ru//css/main.css">
+    <link disabled id="dark-theme" rel="stylesheet" href="https://avenom.ru//css/dark.css">
+
+    <script src="https://avenom.ru//js/svg-injector.min.js"></script>
+    <script src="https://avenom.ru//js/feather-icons.min.js"></script>
+    <script src="https://avenom.ru//js/main.js"></script>
+
+    
+    
+</head>
+<body>
+        <script type="text/javascript">
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+        <div class="avatar">
+            <a href="https://avenom.ru/">
+                <img src="https://avenom.ru/logo.png" alt="avatar" />
+            </a>
+        </div>
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://avenom.ru/">Avenom</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://avenom.ru/posts/"><span data-feather='edit'></span> Посты </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://avenom.ru/posts/projects/"><span data-feather='settings'></span> Проекты </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://avenom.ru/tags/"><span data-feather='tag'></span> Теги </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://avenom.ru/posts/donate/"><span data-feather='credit-card'></span> Донат </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://avenom.ru/index.xml"><span data-feather='rss'></span>  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <a>
+                    <span id="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <a>
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://avenom.ru/posts/"><span data-feather='edit'></span> Посты </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://avenom.ru/posts/projects/"><span data-feather='settings'></span> Проекты </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://avenom.ru/tags/"><span data-feather='tag'></span> Теги </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://avenom.ru/posts/donate/"><span data-feather='credit-card'></span> Донат </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://avenom.ru/index.xml"><span data-feather='rss'></span>  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <a>
+                        <span id="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+
+    <div class="post-header-section">
+        <h1>Установка и настройка Cloudflare Tunnel для Synology NAS</h1>
+        <small role="doc-subtitle"></small>
+
+    <div class="post-content">
+        <p>
+            <p><a href="/posts/synology-cloudflare-tunnel.png"><img src="/posts/synology-cloudflare-tunnel.png" alt=""></a></p>
+<p>Cloudflare Tunnel создает зашифрованный туннель между вашим исходным веб-сервером и ближайшим центром обработки данных Cloudflare, не открывая при этом общедоступных входящих портов. Позволяет быстро развернуть инфраструктуру в среде Zero Trust, и все запросы, обращенные к вашим ресурсам, будут сначала проходить через надежные фильтры безопасности, настроенные в сети Cloudflare.</p>
+<p>Достаточно добавить ваш домен в Cloudflare, а затем настроить один из доступных клиентов (коннекторов) для Linux, Windows, macOS и Docker. После этого служба станет доступной через интернет на вашем домене.</p>
+<p>Плюсы:</p>
+<ul>
+<li>Нет необходимости использовать Synology QuickConnect, Synology DDNS, обратные прокси.</li>
+<li>Для доступа из интернета нет необходимости открывать порты в роутере.</li>
+<li>Автоматический HTTPS с SSL-сертификатом.</li>
+<li>Для отключения доступа достаточно остановить контейнер Cloudflared в Docker.</li>
+</ul>
+<p>Минусы:</p>
+<ul>
+<li>Нужен платный домен.</li>
+<li>Весь трафик будет проходить через серверы Cloudflare, так что если вам необходима максимальная конфиденциальность данных, то лучше использовать свой VPN.</li>
+</ul>
+<h4 id="если-вам-удобнее-читать-гайд-на-github-то-вы-можете-перейти-к-нему-по-ссылкеhttpsgithubcomavenomsynology-cloudflare-tunnel"><em>Если вам удобнее читать гайд на GitHub, то вы можете перейти к нему по <a href="https://github.com/avenom/synology-cloudflare-tunnel">ссылке</a>.</em></h4>
+<h2 id="1-требования-a-namerequirementsa">1. Требования <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
+<ul>
+<li>Доменное имя.</li>
+<li>Учетная запись <a href="https://dash.cloudflare.com/sign-up">Cloudflare</a>.</li>
+<li>Кредитная карта иностранного банка для Cloudflare Zero Trust (нужна только для активации бесплатного плана).</li>
+<li>Container Manager в Synology DSM.</li>
+</ul>
+<h2 id="2-добавление-и-настройка-домена-в-cloudflare-a-namecloudflarea">2. Добавление и настройка домена в Cloudflare <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
+<ol>
+<li>
+<p>Купите доменное имя у регистратора, в качестве примера будет использован домен хостера <a href="https://timeweb.com/ru/services/domains/">Timeweb</a>. После покупки, вы сможете начать работать с доменом после обновления информации на DNS-серверах. Обычно это занимает не больше 3 часов, реже - до 24 часов.</p>
+</li>
+<li>
+<p>Залогиньтесь в <a href="https://dash.cloudflare.com/login">Cloudflare</a>.</p>
+</li>
+<li>
+<p>В аккаунте <a href="https://dash.cloudflare.com/">Cloudflare</a>, на верхней панели нажмите + Add &gt; Existing domain, добавьте ваш домен site.ru, выберите Quick scan for DNS records и нажмите Continue.</p>
+</li>
+</ol>
+<p><a href="/posts/synology-cloudflare-tunnel-add.png"><img src="/posts/synology-cloudflare-tunnel-add.png" alt=""></a></p>
+<p><a href="/posts/synology-cloudflare-site.png"><img src="/posts/synology-cloudflare-tunnel-site.png" alt=""></a></p>
+<ol start="5">
+<li>
+<p>Прокрутите страницу вниз, выберите план Free и нажмите Continue.</p>
+</li>
+<li>
+<p>Далее ваш домен просканируется и его DNS-записи импортируются в Cloudflare, нажмите Continue.</p>
+</li>
+<li>
+<p>Найдите на странице Cloudflare nameservers.</p>
+</li>
+</ol>
+<p>Пример:</p>
+<pre tabindex="0"><code>name1.ns.cloudflare.com
+name2.ns.cloudflare.com
+</code></pre><ol start="7">
+<li>Пример настройки nameservers домена хостера Timeweb. На <a href="https://hosting.timeweb.ru/domains">странице доменов</a> нажмите рядом с вашим доменом кнопку настройки и нажмите &ldquo;Настройки DNS&rdquo;, сверху страницы нажмите &ldquo;Редактировать NS-серверы&rdquo;.</li>
+</ol>
+<p><a href="/posts/synology-cloudflare-tunnel-dns.png"><img src="/posts/synology-cloudflare-tunnel-dns.png" alt=""></a></p>
+<p>Оставьте только два сервера Cloudflare:</p>
+<pre tabindex="0"><code>name1.ns.cloudflare.com
+name2.ns.cloudflare.com
+</code></pre><p><a href="/posts/synology-cloudflare-tunnel-dns-ns.png"><img src="/posts/synology-cloudflare-tunnel-dns-ns.png" alt=""></a></p>
+<ol start="8">
+<li>
+<p>Дождитесь от вашего регистратора письма с успешнным изменением данных домена и делегированием на серверы Cloudflare. На странице Cloudflare нажмите &ldquo;Check nameservers now&rdquo; и дождитесь письма от Cloudflare с содержанием &ldquo;[Cloudflare]: site.ru is now active on a Cloudflare Free plan&rdquo; и нажмите &ldquo;Continue&rdquo;.</p>
+</li>
+<li>
+<p>Далее нажмите Get started и отметьте следующие настройки:</p>
+</li>
+</ol>
+<pre tabindex="0"><code>Automatic HTTPS Rewrites: Yes
+Always use HTTPS: Yes
+</code></pre><p>Нажмите Summary и Finish.</p>
+<h2 id="3-настройка-cloudflare-zero-trust-и-cloudflared-docker-compose-a-namezeroa">3. Настройка Cloudflare Zero Trust и Cloudflared Docker Compose <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
+<ol>
+<li>
+<p>Вернитесь на главную <a href="https://dash.cloudflare.com">Cloudflare</a>, в левом меню выберите Zero Trust.</p>
+</li>
+<li>
+<p>Придумайте имя команды. Имя команды создает уникальный домен для вашей учетной записи Cloudflare Zero Trust. Вы можете изменить его позже. Нажмите &ldquo;Continue&rdquo;.</p>
+</li>
+<li>
+<p>Выберите план Free &gt; Select plan &gt; Proceed to payment &gt; Add payment method &gt; Введите данные кредитной карты иностранного банка &gt; Done &gt; Purchase &gt; Getting Started with Cloudflare Zero Trust Free.</p>
+</li>
+<li>
+<p>В левом меню выберите Networks &gt; Tunnels &gt; Create a tunnel &gt; Select Cloudflared &gt; Next &gt; Придумайте название для туннеля &gt; Save Tunnel.</p>
+</li>
+<li>
+<p>На странице Configure выберите Docker, скопируйте и сохраните куда-нибудь код docker run (кнопкой возле кода).</p>
+</li>
+<li>
+<p>В Synology DSM откройте File Station и создайте следующую структуру папок:</p>
+</li>
+</ol>
+<pre tabindex="0"><code>/docker/cloudflared/
+</code></pre><ol start="7">
+<li>Создайте в Container Manager новый проект с названием cloudflared, выберите путь /docker/cloudflared/, выберите в источнике &ldquo;Создать docker-compose.yml&rdquo;, вставьте в окно ниже следующий код:</li>
+</ol>
+<pre tabindex="0"><code>services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    network_mode: host
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=ВАШТОКЕН # Вставьте из скопированного ранее кода все, что после --token 
+    restart: always
+</code></pre><ol start="8">
+<li>
+<p>Вернитесь на страницу Configure, в Connectors должен быть Status: Connected, нажмите Next.</p>
+</li>
+<li>
+<p>На странице Route Traffic откройте вкладку Public Hostnames и введите ваши данные:</p>
+</li>
+</ol>
+<pre tabindex="0"><code>Subdomain: nas
+Domain: site.ru
+Type: HTTP
+URL: synologyip:5000 # Локальный IP-адрес вашего Synology DSM.
+</code></pre><p>Нажмите Save tunnel.</p>
+<ol start="10">
+<li>Теперь можете проверить доступ к Synology NAS с домена <a href="https://nas.site.ru">https://nas.site.ru</a> - соединение HTTPS с SSL-сертификатом и без открытия порта 443 в роутере.</li>
+</ol>
+<p>Таким же способом с помощью субдоменов можно настроить доступ для других пакетов DSM и контейнеров Docker, выбрав в Networks &gt; Tunnels ранее созданный туннель и нажав Edit, открыв вкладку Public Hostname и нажав Add a public hostname.</p>
+<h2 id="4-настройка-безопасности-cloudflare-tunnel-a-namesecuritya">4. Настройка безопасности Cloudflare Tunnel <!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
+<ol>
+<li>
+<p>Вернитесь на главную <a href="https://dash.cloudflare.com">Cloudflare</a>, в левом меню выберите Zero Trust &gt; Settings &gt; Authentication. Проверьте выбран ли в Login methods: One-time PIN (одноразовый пин-код на вашу почту).</p>
+</li>
+<li>
+<p>В левом меню выберите Access &gt; Access groups &gt; Add a Group. Добавим доступ к вашему домену только из определенной страны с пин-кодом на вашу почту:</p>
+</li>
+</ol>
+<pre tabindex="0"><code>Group name: Russia + Email
+Set as default group: Включить
+
+Include
+Selector: Country
+Value: Russian Federation
+
++ Add require
+
+Require
+Selector: Emails
+Value: Ваша почта
+</code></pre><p>Нажмите Save.</p>
+<ol start="3">
+<li>В левом меню выберите Access &gt; Applications &gt; Add an application &gt; Self-hosted &gt; Select и введите следующие данные:</li>
+</ol>
+<pre tabindex="0"><code>Application Configuration
+Application name: NAS
+Session Duration: 24 hours
+
+Application domain
+Subdomain: * 
+Domain: site.ru
+</code></pre><p>С субдоменом * аутентификацию будут проходить Synology DSM и все субдомены. Пройдя аутентификацию на любом субдомене *.site.ru, вы получаете доступ сразу ко всем субдоменам.</p>
+<p>Нажмите Next и введите следующие данные:</p>
+<pre tabindex="0"><code>Policy name: NAS Access
+Action: Allow
+В Assign a group отметить Russia + Email
+</code></pre><p>Нажмите Next, нажмите Add application.</p>
+<ol start="4">
+<li>Теперь когда вы зайдете на <a href="https://nas.site.ru">https://nas.site.ru</a>, сперва откроется страница Cloudflare с вводом вашей почты:</li>
+</ol>
+<p><a href="/posts/synology-cloudflare-tunnel-email.png"><img src="/posts/synology-cloudflare-tunnel-email.png" alt=""></a></p>
+<p>После чего нужно будет ввести код, который придет на вашу почту:</p>
+<p><a href="/posts/synology-cloudflare-tunnel-email-code.png"><img src="/posts/synology-cloudflare-tunnel-email-code.png" alt=""></a></p>
+<p>Если на сайт зайдет пользователь не из России, то он увидит такую страницу:</p>
+<p><a href="/posts/synology-cloudflare-tunnel-country.png"><img src="/posts/synology-cloudflare-tunnel-country.png" alt=""></a></p>
+<p>Настройка Cloudflare Tunnel завершена!</p>
+
+        </p>
+	
+     <p class="post-date">
+            Опубликовано: 16 августа, 2024
+     </p>			
+				
+	<ul class="post-tags">
+        
+            <li class="post-tag"><a href="https://avenom.ru/tags/%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B">Проекты</a></li>
+        
+            <li class="post-tag"><a href="https://avenom.ru/tags/synology">Synology</a></li>
+        
+            <li class="post-tag"><a href="https://avenom.ru/tags/docker">Docker</a></li>
+        
+            <li class="post-tag"><a href="https://avenom.ru/tags/cloudflare">Cloudflare</a></li>
+        
+            <li class="post-tag"><a href="https://avenom.ru/tags/%D0%B3%D0%B0%D0%B9%D0%B4%D1%8B">Гайды</a></li>
+        
+        </ul>
+		
+    </div>
+    </div>
+</div>
+
+
+
+    
+
+        </main><footer class="footer">
+    <span>&copy; 2024 Avenom</span>
+    <span>
+        Сделано в <a target="_blank" href="https://gohugo.io">Hugo</a> | <a target="_blank" href="https://github.com/526avijitgupta/gokarna">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

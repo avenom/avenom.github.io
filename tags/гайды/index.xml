@@ -6,7 +6,17 @@
     <description>Recent content in Гайды on Avenom</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru</language>
-    <lastBuildDate>Mon, 04 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://avenom.ru/tags/%D0%B3%D0%B0%D0%B9%D0%B4%D1%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://avenom.ru/tags/%D0%B3%D0%B0%D0%B9%D0%B4%D1%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Установка и настройка Cloudflare Tunnel для Synology NAS</title>
+      <link>https://avenom.ru/posts/synology-cloudflare-tunnel/</link>
+      <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://avenom.ru/posts/synology-cloudflare-tunnel/</guid>
+      <description>Cloudflare Tunnel создает зашифрованный туннель между вашим исходным веб-сервером и ближайшим центром обработки данных Cloudflare, не открывая при этом общедоступных входящих портов. Позволяет быстро развернуть инфраструктуру в среде Zero Trust, и все запросы, обращенные к вашим ресурсам, будут сначала проходить через надежные фильтры безопасности, настроенные в сети Cloudflare.
+Достаточно добавить ваш домен в Cloudflare, а затем настроить один из доступных клиентов (коннекторов) для Linux, Windows, macOS и Docker. После этого служба станет доступной через интернет на вашем домене.</description>
+    </item>
+    
     <item>
       <title>Docker Compose для Synology DSM 7.2</title>
       <link>https://avenom.ru/posts/synology-docker-compose/</link>
