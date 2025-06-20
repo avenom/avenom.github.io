@@ -1,0 +1,452 @@
+/*
+* LittleLink Extended Button Styles
+* https://littlelink.io
+* Free to use under the MIT license
+* http://www.opensource.org/licenses/mit-license.php
+*/
+
+/* Brand Button Base Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Only include brand-specific button styling here */
+.button,button {
+  color:var(--button-text,#000000);
+  background-color:var(--button-background,transparent);
+  border:var(--button-border,none);
+  transition:filter 0.2s ease,transform 0.2s ease;
+}
+
+/* Global Button Hover Effect
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.button:hover,button:hover {
+  filter:brightness(90%);
+  transform:translateY(-1px);
+}
+
+/* Button Icons
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.icon {
+  filter:var(--icon-filter,none);
+}
+
+/* Brand-Specific Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+/* 500px */
+.button-500px {
+  --button-text:#000000;
+  --button-background:#FFFFFF;
+  --button-border:1px solid #000000;
+}
+
+/* Alpha Universe */
+.button-alphauniverse {
+  --button-text:#FFFFFF;
+  --button-background:#000000;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* AniList */
+.button-anilist {
+  --button-text:#FFFFFF;
+  --button-background:#2B2D42;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* Audiomack */
+.button-audiomack {
+  --button-text:#FFFFFF;
+  --button-background:#000000;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* Babylist */
+.button-babylist {
+	--button-text:#FFFFFF;
+	--button-background:#6E3264;
+	--button-border:1px solid #FFFFFF;
+}
+
+/* Bandsintown */
+.button-bandsintown {
+  --button-text:#FFFFFF;
+  --button-background:#000000;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* BeReal */
+.button-bereal {
+  --button-text:#FFFFFF;
+  --button-background:#000000;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* Big Cartel */
+.button-bigcartel {
+  --button-text:#FFFFFF;
+  --button-background:#222222;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* Bonfire */
+.button-bonfire {
+  --button-text:#FFFFFF;
+  --button-background:#F49979;
+  --button-border:1px solid #3D4853;
+}
+
+/* Cameo */
+.button-cameo {
+  --button-text:#FFFFFF;
+  --button-background:#000000;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* Clubhouse */
+.button-clubhouse {
+  --button-text:#1F1F1A;
+  --button-background:#F1EFE3;
+  --button-border:1px solid #212121;
+}
+
+/* Codepen */
+.button-codepen {
+  --button-text:#000000;
+  --button-background:#FFFFFF;
+  --button-border:1px solid #000000;
+}
+
+/* Deezer */
+.button-deezer {
+  --button-text:#FFFFFF;
+  --button-background:#181818;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* Devpost */
+.button-devpost {
+  --button-text:#FFFFFF;
+  --button-background:#003E54;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* Distiller */
+.button-dist {
+  --button-text:#FFFFFF;
+  --button-background:#ED5C47;
+}
+
+/* Filmweb */
+.button-filmweb {
+  --button-text:#FFFFFF;
+  --button-background:#000000;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* GOG */
+.button-gog {
+  --button-text:#FFFFFF;
+  --button-background:#303030;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* Guilded */
+.button-guilded {
+  --button-text:#000000;
+  --button-background:#F5C400;
+}
+
+/* Gumroad */
+.button-gumroad {
+  --button-text:#FFFFFF;
+  --button-background:#000000;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* HackerEarth */
+.button-hackerearth {
+  --button-text:#FFFFFF;
+  --button-background:#2B3352;
+}
+
+/* HackerRank */
+.button-hackerrank {
+  --button-text:#000000;
+  --button-background:#FFFFFF;
+  --button-border:1px solid #000000;
+}
+
+/* itch.io */
+.button-itchio {
+  --button-text:#FFFFFF;
+  --button-background:#FA5C5C;
+}
+
+/* Layers */
+.button-layers {
+  --button-text:#000000;
+  --button-background:#FFFFFF;
+  --button-border:1px solid #000000;
+}
+
+/* LeetCode */
+.button-leetcode {
+  --button-text:#000000;
+  --button-background:#FFFFFF;
+  --button-border:1px solid #000000;
+}
+
+/* Lemmy */
+.button-lemmy {
+  --button-text:#FFFFFF;
+  --button-background:#14854F;
+}
+
+/* ListenBrainz */
+.button-listenbrainz {
+  --button-text:#000000;
+  --button-background:#FFFFFF;
+  --button-border:1px solid #000000;
+}
+
+/* Matrix */
+.button-matrix {
+  --button-text:#FFFFFF;
+  --button-background:#000000;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* Micro.blog */
+.button-microblog {
+  --button-text:#FFFFFF;
+  --button-background:#FD9927;
+}
+
+/* Mixcloud */
+.button-mixcloud {
+  --button-text:#FFFFFF;
+  --button-background:#5000FF;
+}
+
+/* MyAnimeList */
+.button-myanimelist {
+  --button-text:#000000;
+  --button-background:#FFFFFF;
+  --button-border:1px solid #000000;
+}
+
+/* NGL */
+.button-ngl {
+  --button-text:#FFFFFF;
+  background-image:linear-gradient(-45deg, #ff8d10, #ec1187);
+}
+
+/* Nostr */
+.button-nostr {
+  --button-text:#FFFFFF;
+  --button-background:#A915FF;
+}
+
+/* OP.GG */
+.button-opgg {
+  --button-text:#FFFFFF;
+  --button-background:#5383E8;
+}
+
+/* OpenSea */
+.button-opensea {
+  --button-text:#FFFFFF;
+  --button-background:#0086FF;
+  --button-border:1px solid #0086FF;
+}
+
+/* OpenStreetMap */
+.button-osm {
+  --button-text:#000000;
+  --button-background:#FFFFFF;
+  --button-border:1px solid #000000;
+}
+
+/* ORCID ID */
+.button-orcid-id {
+  --button-text:#000000;
+  --button-background:#FFFFFF;
+  --button-border:1px solid #212121;
+}
+
+/* osu! */
+.button-osu {
+  --button-text:#000000;
+  --button-background:#FF8EE6;
+}
+
+/* Partiful */
+.button-partiful {
+  --button-text:#FFFFFF;
+  --button-background:#000000;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* PeerTube */
+.button-peertube {
+  --button-text:#000000;
+  --button-background:#FCE8DB;
+  --button-border:1px solid #000000;
+}
+
+/* Pixelfed */
+.button-pixelfed {
+  --button-text:#000000;
+  --button-background:#FFFFFF;
+  --button-border:1px solid #000000;
+}
+
+/* PlayStation */
+.button-playstation {
+  --button-text:#FFFFFF;
+  --button-background:#0070D1;
+}
+
+/* Qobuz */
+.button-qobuz {
+  --button-text:#FFFFFF;
+  --button-background:#000000;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* QQ */
+.button-qq {
+  --button-text:#000000;
+  --button-background:#FFFFFF;
+  --button-border:1px solid #000000;
+}
+
+/* Ravelry */
+.button-ravelry {
+  --button-text:#000000;
+  --button-background:#F3F4F0;
+  --button-border:1px solid #000000;
+}
+
+/* Redbubble */
+.button-redbubble {
+	--button-text:#e41321;
+	--button-background:#ffffff;
+	--button-border:1px solid #212121;
+}
+
+/* ResearchGate */
+.button-researchgate {
+  --button-text:#000000;
+  --button-background:#FFFFFF;
+  --button-border:1px solid #212121;
+}
+
+/* Revolut */
+.button-revolut {
+	--button-text:#000000;
+	--button-background:#ffffff;
+	--button-border:1px solid black;
+}
+
+/* Roll20 */
+.button-roll20 {
+  --button-text:#FFFFFF;
+  --button-background:#EC008C;
+}
+
+/* SimpleX Chat */
+.button-simplex {
+  --button-text:#000000;
+  --button-background:#F3F6F7;
+  --button-border: 1px solid #000000;
+}
+
+/* SimpleX Chat Alt */
+.button-simplex-alt {
+	--button-text:#FFFFFF;
+	--button-background:#000000;
+  --button-border: 1px solid #FFFFFF;
+}
+
+/* Skoob */
+.button-skoob {
+  --button-text:#FFFFFF;
+  --button-background:#3189C8;
+}
+
+/* SpaceHey */
+.button-spacehey {
+  --button-text:#FFFFFF;
+  --button-background:#3234CF;
+}
+
+/* Tidal */
+.button-tidal {
+  --button-text:#FFFFFF;
+  --button-background:#000000;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* Trakt */
+.button-trakt {
+	--button-text:#ffffff;
+	--button-background:#ED1C24;
+}
+
+/* Untappd */
+.button-untappd {
+	--button-text:#000000;
+	--button-background:#ffc000;
+}
+
+/* Upwork */
+.button-upwork {
+	--button-text:#FFFFFF;
+	--button-background:#14A800;
+}
+
+/* Vero */
+.button-vero {
+  --button-text:#FFFFFF;
+  --button-background:#000000;
+  --button-border:1px solid #FFFFFF;
+}
+
+/* VRChat */
+.button-vrchat {
+  --button-text:#000000;
+  --button-background:#FFFFFF;
+  --button-border:1px solid #000000;
+}
+
+/* WIP */
+.button-wip {
+  --button-text:#000000;
+  --button-background:#F9DB00;
+}
+
+/* Write.as */
+.button-writeas {
+  --button-text:#000000;
+  --button-background:#FFFFFF;
+  --button-border:1px solid #000000;
+}
+
+/* WriteFreely */
+.button-writefreely {
+  --button-text:#000000;
+  --button-background:#F4F4F4;
+  --button-border:1px solid #000000;
+}
+
+/* Xbox */
+.button-xbox {
+  --button-text:#FFFFFF;
+  --button-background:#107C10;
+}
+
+/* Xing */
+.button-xing {
+  --button-text:#FFFFFF;
+  --button-background:#026466;
+}
