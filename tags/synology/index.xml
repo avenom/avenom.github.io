@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Synology on Синдром одиночки</title>
+    <link>https://avenom.ru/tags/synology/</link>
+    <description>Recent content in Synology on Синдром одиночки</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru</language>
+    <lastBuildDate>Fri, 16 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://avenom.ru/tags/synology/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Установка и настройка Cloudflare Tunnel для Synology NAS</title>
+      <link>https://avenom.ru/posts/synology-cloudflare-tunnel/</link>
+      <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://avenom.ru/posts/synology-cloudflare-tunnel/</guid>
+      <description>Cloudflare частично заблокирован в России с июня 2025 года. Роскомнадзор включил большинство IP-адресов Cloudflare в реестр запрещённых ресурсов и уведомил провайдеров фильтровать трафик. С 9 июня 2025 года пользователи в России могут загружать только первые 16 Кб данных с сайтов, использующих Cloudflare, что делает полноценную навигацию невозможной.
+Cloudflare Tunnel создает зашифрованный туннель между вашим исходным веб-сервером и ближайшим центром обработки данных Cloudflare, не открывая при этом общедоступных входящих портов. Позволяет быстро развернуть инфраструктуру в среде Zero Trust, и все запросы, обращенные к вашим ресурсам, будут сначала проходить через надежные фильтры безопасности, настроенные в сети Cloudflare.</description>
+    </item>
+    
+    <item>
+      <title>Docker Compose для Synology DSM 7.2</title>
+      <link>https://avenom.ru/posts/synology-docker-compose/</link>
+      <pubDate>Mon, 04 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://avenom.ru/posts/synology-docker-compose/</guid>
+      <description>В Synology DSM 7.2 пакет Docker получил свое логическое развитие и трансформировался в новый Container Manager с поддержкой проектов Docker Compose, которые позволяют одним конфигурационным файлом скачивать и разворачивать все необходимые для установки образы и контейнеры.
+Создал на гитхабе репозиторий с проверенными на работоспособность проектами Docker Compose для разных сервисов с непересекающимися друг с другом локальными портами. Если у вас эти порты будут заняты, то можете поменять на свободные. Например в 8080:80 локальный порт - 8080.</description>
+    </item>
+    
+  </channel>
+</rss>

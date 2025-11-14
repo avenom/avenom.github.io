@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Блог on Синдром одиночки</title>
+    <link>https://avenom.ru/tags/%D0%B1%D0%BB%D0%BE%D0%B3/</link>
+    <description>Recent content in Блог on Синдром одиночки</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru</language>
+    <lastBuildDate>Sat, 01 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://avenom.ru/tags/%D0%B1%D0%BB%D0%BE%D0%B3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>О блоге</title>
+      <link>https://avenom.ru/posts/about/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://avenom.ru/posts/about/</guid>
+      <description>В нынешнем цифровом гетто потихоньку отхожу от централизированных сервисов в пользу привычного хостинга. Изначально планировал разместить блог на VPS-хостинге, но подумал для статического блога на Hugo будет достаточно GitHub Pages с прикрученным доменом.
+Генератор статических сайтов Hugo удобен для тех, кто хочет собирать сайт на локальной машине. Hugo доступен в виде одного бинарного файла Hugo.exe. Не нужно ставить никакого дополнительного ПО, Hugo разворчивается через командую строку, в итоге имеем минимальное количество файлов, а это удобно для быстрого бэкапа и разворачивания на другой машине.</description>
+    </item>
+    
+  </channel>
+</rss>
