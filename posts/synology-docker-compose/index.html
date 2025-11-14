@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #eb5d51;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Docker Compose для Synology DSM 7.2</title>
+    <meta name="description" content="Техноблог флегматичного энтузиаста">
+    <meta name="keywords" content='блог, Проекты, Synology, Docker, Гайды'>
+
+    <meta property="og:url" content="https://avenom.ru/posts/synology-docker-compose/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Docker Compose для Synology DSM 7.2">
+    <meta property="og:description" content="Техноблог флегматичного энтузиаста">
+    <meta property="og:image" content="/posts/synology-docker-compose.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Docker Compose для Synology DSM 7.2">
+    <meta name="twitter:description" content="Техноблог флегматичного энтузиаста">
+    <meta property="twitter:domain" content="https://avenom.ru/posts/synology-docker-compose/">
+    <meta property="twitter:url" content="https://avenom.ru/posts/synology-docker-compose/">
+    <meta name="twitter:image" content="/posts/synology-docker-compose.png">
+
+    
+
+    <a rel="me" href="https://mas.to/@avenom">Mastodon</a>
+
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Avenom" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="canonical" href="https://avenom.ru/posts/synology-docker-compose/" />
+
+    <link rel="stylesheet" type="text/css" href="https://avenom.ru//css/normalize.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" type="text/css" href="https://avenom.ru//css/main.css">
+    <link disabled id="dark-theme" rel="stylesheet" href="https://avenom.ru//css/dark.css">
+
+    <script src="https://avenom.ru//js/svg-injector.min.js"></script>
+    <script src="https://avenom.ru//js/feather-icons.min.js"></script>
+    <script src="https://avenom.ru//js/main.js"></script>
+
+    
+    
+</head>
+<body>
+        <script type="text/javascript">
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+        <div class="avatar">
+            <a href="https://avenom.ru/">
+                <img src="https://avenom.ru/logo.png" alt="Логотип" />
+            </a>
+        </div>
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="https://avenom.ru/">Синдром одиночки</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="https://avenom.ru/posts/"><span data-feather='edit'></span> Посты </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://avenom.ru/posts/projects/"><span data-feather='settings'></span> Проекты </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://avenom.ru/tags/"><span data-feather='tag'></span> Теги </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://avenom.ru/posts/donate/"><span data-feather='credit-card'></span> Донат </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://avenom.ru/index.xml"><span data-feather='rss'></span>  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <a>
+                    <span id="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <a>
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="https://avenom.ru/posts/"><span data-feather='edit'></span> Посты </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://avenom.ru/posts/projects/"><span data-feather='settings'></span> Проекты </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://avenom.ru/tags/"><span data-feather='tag'></span> Теги </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://avenom.ru/posts/donate/"><span data-feather='credit-card'></span> Донат </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://avenom.ru/index.xml"><span data-feather='rss'></span>  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <a>
+                        <span id="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+
+    <div class="post-header-section">
+        <h1>Docker Compose для Synology DSM 7.2</h1>
+        <small role="doc-subtitle"></small>
+
+    <div class="post-content">
+        <p>
+            <p><a href="/posts/synology-docker-compose.png"><img src="/posts/synology-docker-compose.png" alt="Шапка поста с текстом Synology Docker Compose" title="Шапка поста с текстом Synology Docker Compose"></a></p>
+<p>В Synology DSM 7.2 пакет Docker получил свое логическое развитие и трансформировался в новый Container Manager с поддержкой проектов Docker Compose, которые позволяют одним конфигурационным файлом скачивать и разворачивать все необходимые для установки образы и контейнеры.</p>
+<p>Создал на гитхабе репозиторий с проверенными на работоспособность проектами Docker Compose для разных сервисов с непересекающимися друг с другом локальными портами. Если у вас эти порты будут заняты, то можете поменять на свободные. Например в <strong>8080:80</strong> локальный порт - <strong>8080</strong>.</p>
+<p>Если заметите неточности, то пишите в <a href="https://t.me/avenom">телеграм</a>.</p>
+<h4 id="репозиторий-в-githubhttpsgithubcomavenomsynology-docker-compose">Репозиторий в <a href="https://github.com/avenom/synology-docker-compose">GitHub</a></h4>
+<ul>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/audiobookshelf.md">Audiobookshelf</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/glances.md">Glances</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/homeassistant.md">Home Assistant</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/homepage.md">Homepage</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/it-tools.md">IT-Tools</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/memos.md">Memos</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/metube.md">MeTube</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/miniflux.md">Miniflux + PostgreSQL</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/openspeedtest.md">OpenSpeedTest</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/qbittorrent.md">qBittorrent</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/reubah.md">Reubah</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/rss-bridge.md">RSS-Bridge</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/searxng.md">SearXNG</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/smtp_to_telegram.md">SMTP To Telegram</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/tautulli.md">Tautulli</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/uptime-kuma.md">Uptime Kuma</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/vaultwarden.md">Vaultwarden</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/wallabag.md">Wallabag + MariaDB + Redis</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose/blob/main/whatsupdocker.md">What&rsquo;s Up Docker</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose#puid">Как узнать ваш PUID и PGID в Synology DSM</a></li>
+<li><a href="https://github.com/avenom/synology-docker-compose#gmail">Активация Gmail SMTP для контейнеров Docker</a></li>
+</ul>
+
+        </p>
+	
+     <p class="post-date">
+            Опубликовано: 4 декабря, 2023
+     </p>			
+				
+	<ul class="post-tags">
+        
+            <li class="post-tag"><a href="https://avenom.ru/tags/%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B">Проекты</a></li>
+        
+            <li class="post-tag"><a href="https://avenom.ru/tags/synology">Synology</a></li>
+        
+            <li class="post-tag"><a href="https://avenom.ru/tags/docker">Docker</a></li>
+        
+            <li class="post-tag"><a href="https://avenom.ru/tags/%D0%B3%D0%B0%D0%B9%D0%B4%D1%8B">Гайды</a></li>
+        
+        </ul>
+		
+    </div>
+    </div>
+</div>
+
+
+
+    
+
+        </main><footer class="footer">
+    <span>&copy; 2025 Avenom</span>
+    <span>
+        Сделано в <a target="_blank" href="https://gohugo.io">Hugo</a> | <a target="_blank" href="https://github.com/526avijitgupta/gokarna">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>
