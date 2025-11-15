@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Spotify on Синдром одиночки</title><link>https://avenom.ru/tags/spotify/</link><description>Recent content in Spotify on Синдром одиночки</description><generator>Hugo</generator><language>ru</language><lastBuildDate>Sun, 09 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://avenom.ru/tags/spotify/index.xml" rel="self" type="application/rss+xml"/><item><title>Мини-плеер Spotibar</title><link>https://avenom.ru/posts/spotibar/</link><pubDate>Sun, 09 Jan 2022 00:00:00 +0000</pubDate><guid>https://avenom.ru/posts/spotibar/</guid><description>&lt;p&gt;&lt;a href="https://avenom.ru/posts/spotibar-01.png"&gt;&lt;img src="https://avenom.ru/posts/spotibar-01.png" alt="Шапка поста со скриншотом мини-плеера Spotibar" title="Шапка поста со скриншотом мини-плеера Spotibar"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Мини-плеер для десктопного клиента Spotify для Windows в виде скина для Rainmeter.&lt;/p&gt;
+&lt;h3 id="spotibar"&gt;Spotibar&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Запуск Spotify по иконке, сворачивается обратно в иконку, когда Spotify не запущен&lt;/li&gt;
+&lt;li&gt;Клик по текущему треку и исполнителю открывает окно Spotify (для правильной работы сворачивайте окно, а не закрывайте).&lt;/li&gt;
+&lt;li&gt;Кнопки управления: &lt;code&gt;Предыдущий трек&lt;/code&gt; &lt;code&gt;Плей/Пауза&lt;/code&gt; &lt;code&gt;Следующий трек&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Кнопки управления при наведении на обложку: &lt;code&gt;Повторять трек&lt;/code&gt; &lt;code&gt;Перемешать треки&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Регулировка громкости колесом мыши при наведении на плеер, правый клик выключает звук&lt;/li&gt;
+&lt;li&gt;Прогресс трека и версия с фоном адаптируются под цвет обложки&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="https://avenom.ru/posts/spotibar-02.png"&gt;&lt;img src="https://avenom.ru/posts/spotibar-02.png" alt="Скринщот мини-плеера Spotibar с адаптируемым фоном" title="Скринщот мини-плеера Spotibar с адаптируемым фоном"&gt;&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>
