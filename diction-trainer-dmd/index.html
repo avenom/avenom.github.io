@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Интерактивная программа тренировки дикции: 4 недели, 7 текстов, 5 упражнений в день. Локальное сохранение прогресса.">
+  <title>Чёткая речь — тренажёр дикции на 4 недели</title>
+  <style>
+    :root {
+      --bg:#0c1220; --panel:#131c2d; --panel2:#192438; --line:#2d3a50;
+      --text:#eff4fc; --muted:#a7b5cc; --soft:#8190aa; --accent:#8de6ce;
+      --accent-dark:#163f3b; --blue:#a2c0ff; --danger:#ffacac;
+      --radius:19px; --shadow:0 16px 45px rgba(0,0,0,.17);
+    }
+    *,*::before,*::after { box-sizing:border-box; }
+    html {scroll-behavior:smooth;}
+    body {margin:0; min-height:100vh; background:radial-gradient(ellipse at top right,#172440 0,transparent 42%),var(--bg); color:var(--text); font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;}
+    button,input {font:inherit;}
+    button { cursor:pointer; }
+    button:focus-visible,a:focus-visible,input:focus-visible,label:focus-within {outline:3px solid var(--blue);outline-offset:4px;}
+    a {color:var(--accent);text-underline-offset:3px;}
+    .shell {max-width:1320px;margin:auto;padding:28px 28px 65px;}
+    .eyebrow {color:var(--accent);font-size:12px;letter-spacing:.17em;text-transform:uppercase;font-weight:800;}
+    h1,h2,h3,p {margin-top:0;}
+    h1 {font-size:clamp(34px,3.6vw,49px);line-height:1.12;letter-spacing:-.045em;margin:12px 0 10px;}
+    h2 {font-size:24px;line-height:1.25;letter-spacing:-.02em;}
+    h3 {font-size:20px;line-height:1.32;letter-spacing:-.012em;}
+    .muted {color:var(--muted);}
+    .tiny {font-size:13px;}
+    .masthead {display:grid;grid-template-columns:minmax(0,1fr) 332px;gap:24px;align-items:stretch;margin-bottom:24px;}
+    .intro {padding:16px 0 4px;}
+    .intro p {font-size:17px;max-width:740px;color:var(--muted);margin-bottom:0;}
+    .stat-card {border:1px solid var(--line);border-radius:var(--radius);background:rgba(20,30,48,.95);padding:23px;box-shadow:var(--shadow);display:flex;align-items:center;gap:19px;}
+    .ring {width:101px;height:101px;flex:none;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--accent) var(--pct),#314057 0);}
+    .ring::before {content:"";position:absolute;inset:9px;border-radius:50%;background:var(--panel);}
+    .ring span {font-weight:800;position:relative;font-size:23px;font-variant-numeric:tabular-nums;}
+    .stat-copy strong {display:block;font-size:20px;line-height:1.25;margin:2px 0 6px;}
+    .stat-copy small {display:block;color:var(--muted);font-size:13px;line-height:1.45;}
+    .layout {display:grid;grid-template-columns:285px minmax(0,1fr);gap:23px;align-items:start;}
+    .sidebar {position:sticky;top:20px;display:grid;gap:16px;}
+    .panel {background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);}
+    .nav-panel {padding:20px;}
+    .panel-title {margin:0 0 15px;font-size:14px;font-weight:800;letter-spacing:.01em;}
+    .week-grid {display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:0 0 18px;}
+    .week-btn {border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:var(--muted);padding:10px 0;font-size:14px;font-weight:800;min-height:44px;}
+    .week-btn.active {background:var(--accent-dark);border-color:var(--accent);color:var(--accent);}
+    .week-btn:hover:not(.active) {color:var(--text);border-color:#687891;}
+    .week-description {padding:12px 13px;margin:0 0 15px;background:#17253b;border:1px solid #283d56;border-radius:12px;color:#c8d5e7;font-size:13px;line-height:1.55;}
+    .day-nav {display:grid;gap:5px;}
+    .day-btn {text-align:left;display:flex;align-items:center;gap:10px;padding:10px 12px;width:100%;min-height:49px;border-radius:11px;background:transparent;border:1px solid transparent;color:var(--text);}
+    .day-btn:hover {background:#1d2a40;}
+    .day-btn.active {border-color:#637f8d;background:#213345;}
+    .day-btn .day-order {width:26px;height:26px;flex:none;display:grid;place-items:center;border-radius:8px;background:#27354d;font-size:12px;color:var(--muted);font-weight:800;}
+    .day-btn .day-name {flex:1;font-size:14px;font-weight:650;}
+    .mini-dots {display:flex;gap:3px;}
+    .mini-dots i {width:5px;height:5px;border-radius:50%;background:#43536b;}
+    .mini-dots i.is-done {background:var(--accent);}
+    .done-badge {color:var(--accent);font-size:16px;line-height:1;}
+    .sidebar-bottom {padding:17px 19px;}
+    .week-stat {display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:700;margin-bottom:10px;}
+    .progress-track {background:#334158;height:7px;border-radius:999px;overflow:hidden;}
+    .progress-fill {height:100%;background:var(--accent);border-radius:inherit;transition:width .22s ease;}
+    .info-note {background:#18253a;border:1px solid #34475e;border-radius:14px;padding:16px;color:#c7d5e8;font-size:13px;line-height:1.55;}
+    .content {min-width:0;}
+    .day-header {padding:27px 29px;}
+    .header-upper {display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+    .chip {display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid #42635e;border-radius:99px;font-size:12px;font-weight:800;color:var(--accent);background:#1a3638;}
+    .chip.neutral {border-color:#3d4d68;background:#1c2940;color:#b9c9e5;}
+    .day-header h2 {font-size:clamp(23px,3vw,31px);margin:0 0 10px;}
+    .day-header p {color:var(--muted);margin:0;}
+    .day-progress {margin-top:21px;display:flex;align-items:center;gap:14px;}
+    .day-progress .progress-track {flex:1;height:9px;}
+    .day-progress b {font-size:14px;white-space:nowrap;font-variant-numeric:tabular-nums;}
+    .section-label {color:#bdd0ea;text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:900;margin:24px 0 12px 2px;}
+    .stages {display:grid;gap:13px;}
+    .stage {background:var(--panel);border:1px solid var(--line);border-radius:17px;overflow:hidden;transition:border-color .2s, background .2s;}
+    .stage.checked {border-color:#3d8175;background:#122a2d;}
+    .stage-head {display:flex;align-items:center;gap:15px;padding:21px 22px 16px;}
+    .stage-check {position:relative;display:grid;place-items:center;flex:none;width:44px;height:44px;border:2px solid #6c7e99;border-radius:12px;cursor:pointer;background:#1c2a3f;transition:.2s;}
+    .stage-check:has(input:checked) {background:var(--accent);border-color:var(--accent);}
+    .stage-check input {position:absolute;inset:0;opacity:0;cursor:pointer;margin:0;width:100%;height:100%;}
+    .stage-check .check-symbol {font-size:26px;line-height:1;font-weight:900;color:#102c2a;opacity:0;pointer-events:none;}
+    .stage-check:has(input:checked) .check-symbol {opacity:1;}
+    .stage-heading {flex:1;min-width:0;}
+    .stage-heading h3 {margin:0 0 2px;font-size:18px;}
+    .stage-heading p {color:var(--muted);font-size:13px;margin:0;}
+    .stage-time {font-size:13px;color:var(--muted);font-weight:700;white-space:nowrap;}
+    .stage-body {padding:0 22px 21px 81px;font-size:15px;color:#dde6f2;}
+    .stage-body p:last-child {margin-bottom:0;}
+    .example {border:1px solid #395069;border-radius:12px;background:#19293e;padding:15px 17px;margin:10px 0;line-height:1.85;font-size:17px;letter-spacing:.01em;}
+    .speech-text {font-size:19px;line-height:2.08;letter-spacing:.003em;word-spacing:.03em;margin:10px 0 5px;padding:23px 25px;background:#1b2a3e;border:1px solid #3a506b;border-radius:14px;}
+    .speech-text.large {font-size:24px;line-height:2.12;}
+    .speech-text .short-pause {color:#a9bcd9;padding:0 4px;user-select:none;font-weight:300;}
+    .speech-text .long-pause {color:var(--accent);padding:0 7px;user-select:none;}
+    .speech-note {margin:0 0 14px;color:var(--soft);font-size:13px;}
+    .reading-tools {display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 8px;}
+    .button {display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:8px 13px;border-radius:10px;font-size:13px;font-weight:750;color:var(--text);border:1px solid #50627c;background:#26374e;text-align:center;}
+    .button:hover {background:#324761;}
+    .button-primary {border-color:#8de6ce;background:var(--accent);color:#102c2a;}
+    .button-primary:hover {background:#b3f4df;}
+    .button-danger {background:transparent;border-color:#81555c;color:#ffc4c4;}
+    .button-danger:hover {background:#38242c;}
+    .button:disabled {opacity:.4;cursor:not-allowed;}
+    .day-actions {margin-top:17px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+    .completed-box {border:1px solid #478779;background:#173a3b;border-radius:14px;padding:15px 19px;margin-top:16px;color:#c6ffeb;display:flex;align-items:center;gap:10px;font-size:14px;}
+    .guide {padding:23px 25px;margin-top:21px;}
+    .guide h3 {margin-bottom:9px;}
+    .guide p {color:var(--muted);margin-bottom:8px;font-size:14px;}
+    .guide ul {padding-left:20px;margin-bottom:0;color:#cbd8eb;font-size:14px;}
+    .guide li {margin:4px 0;}
+    .footer {margin-top:26px;border-top:1px solid var(--line);padding-top:19px;display:flex;align-items:start;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+    .footer p {margin:0;color:var(--soft);font-size:12px;max-width:750px;}
+    .tools {display:flex;gap:8px;flex-wrap:wrap;}
+    .status-row {display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px;margin-top:10px;}
+    .status-dot {background:var(--accent);height:7px;width:7px;border-radius:50%;}
+    .status-dot.off {background:#d6a676;}
+    .screenreader {position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
+    @media (max-width:1000px) {
+      .masthead {grid-template-columns:1fr;}
+      .stat-card {max-width:480px;}
+      .layout {grid-template-columns:245px minmax(0,1fr);gap:16px;}
+      .shell {padding:20px 18px 55px;}
+    }
+    @media (max-width:720px) {
+      .layout {grid-template-columns:1fr;}
+      .sidebar {position:static;}
+      .nav-panel {padding:16px;}
+      .day-nav {grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;}
+      .day-btn {display:grid;justify-items:center;gap:5px;padding:7px 1px;min-height:59px;}
+      .day-btn .day-order {width:auto;height:auto;background:transparent;font-size:11px;}
+      .day-btn .day-name {font-size:12px;}
+      .day-btn .mini-dots {display:none;}
+      .done-badge {font-size:12px;}
+      .week-description {margin-bottom:12px;}
+      .week-stat {margin:0 0 10px;}
+      .sidebar-bottom {display:none;}
+      .day-header {padding:22px 19px;}
+      .stage-head {padding:18px 15px 12px;gap:12px;}
+      .stage-body {padding:0 15px 18px 15px;}
+      .speech-text {font-size:18px;padding:15px 17px;line-height:1.95;}
+      .speech-text.large {font-size:21px;line-height:2;}
+      .stat-card {padding:19px;}
+      .guide {padding:18px;}
+    }
+    @media print {
+      :root {color-scheme:light;}
+      body {background:white;color:#121212;}
+      .shell {padding:0;}
+      .masthead {display:block;margin-bottom:12px;}
+      .intro h1 {font-size:30px;}
+      .intro p {color:#555;}
+      .stat-card,.sidebar,.reading-tools,.day-actions,.footer,.guide,.section-label,.header-upper {display:none!important;}
+      .layout {display:block;}
+      .panel,.stage {background:white;border:1px solid #bbb;box-shadow:none;break-inside:avoid;}
+      .day-header,.stage-body,.stage-heading p,.speech-note {color:#333;}
+      .day-header p,.stage-time {color:#333;}
+      .speech-text,.example {background:white;color:#111;border:1px solid #bbb;}
+      .stage-check {background:white;border-color:#222;}
+      .stage-check .check-symbol {color:#111;}
+      .speech-text .short-pause,.speech-text .long-pause {color:#333;}
+    }
+    @media (prefers-reduced-motion:reduce) {html{scroll-behavior:auto;}*,*::before,*::after{transition:none!important;}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="masthead">
+      <div class="intro">
+        <div class="eyebrow">Личный тренажёр речи</div>
+        <h1>Говори чётче.</h1>
+        <p>Программа на 4 недели против бубнежа и проглатывания окончаний. Пять коротких этапов, тексты для чтения и отметки о выполнении — всё в одной странице.</p>
+      </div>
+      <div class="stat-card" aria-live="polite">
+        <div class="ring" id="total-ring" style="--pct:0%"><span id="total-pct">0%</span></div>
+        <div class="stat-copy">
+          <div class="eyebrow">Общий прогресс</div>
+          <strong id="days-finished">0 из 28 дней</strong>
+          <small id="steps-finished">0 из 140 этапов выполнено</small>
+          <div class="status-row" id="storage-status"><span class="status-dot"></span>Отметки сохраняются автоматически</div>
+        </div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="sidebar" aria-label="Навигация по программе">
+        <div class="panel nav-panel">
+          <h2 class="panel-title">Неделя программы</h2>
+          <div class="week-grid" id="week-nav" role="group" aria-label="Выбор недели"></div>
+          <div class="week-description" id="week-desc"></div>
+          <h2 class="panel-title">Дни недели</h2>
+          <nav class="day-nav" id="day-nav" aria-label="Выбор дня"></nav>
+        </div>
+        <div class="panel sidebar-bottom">
+          <div class="week-stat"><span>Прогресс недели</span><span id="week-score">0/35</span></div>
+          <div class="progress-track"><div class="progress-fill" id="week-fill" style="width:0%"></div></div>
+          <p class="muted tiny" id="week-days-status" style="margin:12px 0 0"></p>
+        </div>
+        <div class="info-note">
+          <strong>Без перенапряжения.</strong> Начинай с 5 минут, если 10 минут утомляют. Не говори через силу и не стремись к максимальной громкости. При нарастании усталости сделай перерыв.
+        </div>
+      </aside>
+      <main class="content" id="main">
+        <noscript>Для работы чекбоксов и сохранения прогресса необходимо включить JavaScript в браузере.</noscript>
+      </main>
+    </div>
+    <footer class="footer">
+      <div>
+        <p>Отметки хранятся только в этом браузере на этом устройстве. Файл работает без интернета и без аккаунта. Рекомендации по замедлению речи, чёткой артикуляции и паузам: <a href="https://www.asha.org/practice-portal/clinical-topics/dysarthria-in-adults/" target="_blank" rel="noopener noreferrer">ASHA</a> и <a href="https://www.asph.nhs.uk/dysarthria" target="_blank" rel="noopener noreferrer">NHS</a>. Это самостоятельная практика, а не замена индивидуального назначения логопеда.</p>
+      </div>
+      <div class="tools">
+        <button type="button" class="button" id="export-btn" title="Сохранить файл со всеми отметками">Экспорт прогресса</button>
+        <button type="button" class="button" id="import-btn" title="Восстановить прогресс из JSON">Импорт</button>
+        <input class="screenreader" type="file" id="import-file" accept=".json,application/json" aria-label="Выберите JSON с прогрессом">
+        <button type="button" class="button button-danger" id="reset-btn">Сбросить всё</button>
+      </div>
+    </footer>
+  </div>
+  <script>
+    'use strict';
+    const STORAGE_KEY = 'clear-speech-tracker-v1';
+    const WEEKDAYS = ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье'];
+    const SHORT_DAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+    const WEEK_FOCUS = [
+      {title:'Чёткие окончания',description:'Неделя 1: медленный темп, отчётливые последние слоги и спокойные паузы.',task:'Читай медленно. Не ускоряйся, пока не услышишь окончание каждого слова.'},
+      {title:'Естественный темп',description:'Неделя 2: сохраняй чёткость, постепенно приближаясь к обычному темпу речи.',task:'Первый проход — медленно. Второй — немного естественнее, но без потери окончаний.'},
+      {title:'Пересказ своими словами',description:'Неделя 3: после чтения коротко пересказывай текст без подсказки.',task:'После чтения произнеси 3–5 предложений своими словами, делая паузы.'},
+      {title:'Речь на стриме',description:'Неделя 4: перенос навыка на живые комментарии и свободную разговорную речь.',task:'Представь, что объясняешь зрителю свои действия в игре или настройках OBS.'}
+    ];
+    const DAYS = [
+      {
+        focus:'Окончания глаголов',
+        goal:'Не терять окончания при переходе от одного слова к другому.',
+        syllables:'ТА — ДА — ТА · ПА — БА — ПА',
+        words:'Настроил — настроили; проверяет — проверяют; включил — включили.',
+        prompt:'Расскажи, что сегодня настроил на компьютере. Употреби слова «проверил», «настроил», «закончил».',
+        text:`Сегодня я проверил настройки компьютера / и подготовил оборудование к трансляции. // Сначала я включил микрофон / и настроил уровень громкости. // Затем открыл программу / и проверил все источники звука. // Некоторые параметры пришлось изменить / потому что они работали неправильно. // Теперь всё настроено / и можно начинать трансляцию. // Осталось проверить изображение / убедиться, что зрители меня хорошо слышат / и спокойно запустить игру.`
+      },
+      {
+        focus:'Разделение слов и паузы',
+        goal:'Разделять смысловые группы и не сливать соседние слова.',
+        syllables:'ПА — ТА — КА · БА — ДА — ГА',
+        words:'Сейчас проверю; всё работает; можно начинать; нужно исправить.',
+        prompt:'Расскажи об игре, в которую сейчас играешь. Делай небольшую паузу между смысловыми частями.',
+        text:`Сегодня я решил немного поиграть / и проверить новую игру. // Сначала всё выглядело довольно просто. // Персонаж двигался быстро / управление было понятным / а задания не вызывали особых проблем. // Однако через некоторое время / начали появляться сложные противники. // Пришлось остановиться / разобраться с управлением / и немного изменить тактику. // После нескольких попыток / мне удалось пройти этот участок. // Теперь можно продолжать прохождение / и посмотреть, что будет дальше.`
+      },
+      {
+        focus:'Свистящие и шипящие',
+        goal:'Отчётливо различать согласные, сохраняя обычную силу голоса.',
+        syllables:'СА — ША · ЗА — ЖА · СТА — ШТА',
+        words:'Система; изображение; разрешение; завершение; источник.',
+        prompt:'Объясни, как ты проверяешь запись OBS. Произнеси отчётливо «изображение» и «разрешение».',
+        text:`Вчера я завершил настройку системы / и решил проверить качество записи. // Изображение оказалось достаточно чётким / но в некоторых сценах появлялись небольшие задержки. // Сначала я уменьшил разрешение / затем изменил несколько параметров. // После этого программа заработала значительно стабильнее. // Теперь запись сохраняется правильно / звук не пропадает / а изображение остаётся плавным. // Осталось провести заключительную проверку / и сохранить рабочие настройки.`
+      },
+      {
+        focus:'Длинные и сложные слова',
+        goal:'Не сокращать последние слоги длинных технических терминов.',
+        syllables:'СТРА — СТРО — СТРУ · КРА — КРО — КРУ',
+        words:'Производительность; автоматический; переключение; подключение; конфигурация.',
+        prompt:'Объясни простыми словами, что влияет на производительность компьютера.',
+        text:`Производительность компьютера / зависит от множества параметров. // Например / неправильно настроенное программное обеспечение / может значительно увеличить нагрузку на систему. // Поэтому перед началом трансляции / полезно проверить конфигурацию / подключение устройств / и работу необходимых приложений. // Иногда небольшое изменение параметров / заметно улучшает стабильность. // Главное — последовательно проверять настройки / сохранять удачные изменения / и не пытаться исправить все проблемы одновременно.`
+      },
+      {
+        focus:'Концы предложений',
+        goal:'Не ускорять последние слова и не превращать их в неразборчивое бормотание.',
+        syllables:'МА — НА — ЛА · МИ — НИ — ЛИ',
+        words:'Получилось; закончилось; работает; продолжается; изменилось.',
+        prompt:'Скажи, почему тебе нравится или не нравится конкретная игра. Чётко заканчивай каждую мысль.',
+        text:`Почему некоторые игры запоминаются надолго? // Возможно / дело совсем не в графике. // Хорошая история / интересные персонажи / и продуманный игровой процесс / гораздо важнее технических эффектов. // Иногда простая игра / вызывает больше эмоций / чем дорогой современный проект. // Но бывает и наоборот. // Красивая графика впечатляет / интересные механики работают / а вот сама история совершенно не запоминается. // Именно поэтому / я стараюсь оценивать каждую игру целиком.`
+      },
+      {
+        focus:'Естественная разговорная речь',
+        goal:'Сохранять чёткость при переходе от подготовленного текста к разговору.',
+        syllables:'ПРА — ПРО — ПРУ · ТРА — ТРО — ТРУ',
+        words:'Попробовать; продолжить; разобраться; переключиться; понравилось.',
+        prompt:'Опиши удобную настройку управления в игре, будто отвечаешь зрителю.',
+        text:`Сегодня я попробовал новое управление / и сначала немного запутался. // Некоторые действия выполнялись непривычно / поэтому пришлось несколько раз изменить настройки. // Постепенно я разобрался / какие сочетания использовать удобнее. // Теперь персонажем управлять значительно проще / хотя отдельные моменты по-прежнему требуют внимания. // Думаю / после небольшой практики / всё станет привычнее. // Главное — не торопиться / и спокойно проверять каждое новое действие.`
+      },
+      {
+        focus:'Контрольная запись',
+        goal:'Сравнить разборчивость с предыдущей неделей, не увеличивая нагрузку.',
+        syllables:'ПА — ТА — КА · СА — ША · СТРА — СТРО',
+        words:'Проверил — проверили; работает — работают; настроил — настроили.',
+        prompt:'Расскажи, что было проще произносить на этой неделе, а где окончания ещё теряются.',
+        text:`Сегодня я проверил настройки компьютера / и подготовил оборудование к трансляции. // Сначала я включил микрофон / и настроил уровень громкости. // Затем открыл программу / и проверил все источники звука. // Некоторые параметры пришлось изменить / потому что они работали неправильно. // Теперь всё настроено / и можно начинать трансляцию. // Осталось проверить изображение / убедиться, что зрители меня хорошо слышат / и спокойно запустить игру.`
+      }
+    ];
+    const STEP_NAMES = ['Подготовка','Слоги и согласные','Окончания слов','Чтение вслух','Пересказ и самопроверка'];
+    const STEP_TIME = ['1 мин','2 мин','2 мин','3 мин','2 мин'];
+    const esc = str => String(str).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const sessionKey = (w,d)=>`w${w}d${d}`;
+    const blank = () => Array.from({length:5},()=>false);
+    let storageOK = true;
+    let state = {version:1, sessions:{}, selected:{week:0,day:0}, largeText:false};
+
+    function sanitize(input) {
+      const clean = {version:1,sessions:{},selected:{week:0,day:0},largeText:false};
+      if (!input || typeof input!=='object') return clean;
+      if (input.sessions && typeof input.sessions==='object') {
+        for (let w=0;w<4;w++) for(let d=0;d<7;d++) {
+          const k=sessionKey(w,d), s=input.sessions[k];
+          if (Array.isArray(s)) clean.sessions[k]=Array.from({length:5},(_,i)=>s[i]===true);
+        }
+      }
+      if(input.selected && Number.isInteger(input.selected.week) && Number.isInteger(input.selected.day) && input.selected.week>=0 && input.selected.week<4 && input.selected.day>=0 && input.selected.day<7) clean.selected={week:input.selected.week,day:input.selected.day};
+      clean.largeText = input.largeText===true;
+      return clean;
+    }
+    try {
+      const data = localStorage.getItem(STORAGE_KEY);
+      if (data) state=sanitize(JSON.parse(data));
+      localStorage.setItem('__speech_storage_check','1');localStorage.removeItem('__speech_storage_check');
+    } catch(e) {storageOK=false;}
+    const count = (arr)=>arr.filter(Boolean).length;
+    const getSteps=(w,d)=>state.sessions[sessionKey(w,d)] || blank();
+    function save() {
+      if(!storageOK)return;
+      try {localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}
+      catch(e) {storageOK=false;updateStorageNotice();}
+    }
+    function updateStorageNotice() {
+      const el=document.getElementById('storage-status');
+      el.innerHTML=storageOK ? '<span class="status-dot"></span>Отметки сохраняются автоматически' : '<span class="status-dot off"></span>Сохранение в браузере недоступно. Используй экспорт.';
+    }
+    function allStats() {
+      let steps=0,days=0;
+      for(let w=0;w<4;w++)for(let d=0;d<7;d++){let n=count(getSteps(w,d));steps+=n;if(n===5)days++;}
+      return {steps,days};
+    }
+    function weekStats(w) {
+      let steps=0,days=0;
+      for(let d=0;d<7;d++){const n=count(getSteps(w,d));steps+=n;if(n===5)days++;}
+      return {steps,days};
+    }
+    function setSelected(w,d) {state.selected={week:w,day:d};save();render();}
+    function formattedText(raw) {
+      return esc(raw).replaceAll(' // ',' <span class="long-pause" aria-label="длинная пауза">//</span> ').replaceAll(' / ',' <span class="short-pause" aria-label="короткая пауза">/</span> ');
+    }
+    function stageHTML(i,w,d) {
+      const data=DAYS[d],checked=getSteps(w,d)[i], week=WEEK_FOCUS[w];
+      let content='';
+      if(i===0) content='<p>Расположись удобно, поддерживая голову и спину. Произнеси 2–3 простые фразы привычным голосом. Никаких силовых упражнений и задержек дыхания.</p>';
+      if(i===1) content=`<p>Произноси сочетания медленно, не сливая звуки. Достаточно 2–3 спокойных повторений.</p><div class="example">${esc(data.syllables)}</div>`;
+      if(i===2) content=`<p>Сначала произнеси каждое слово отдельно, затем в короткой фразе. Обращай внимание на <strong>последние слоги</strong>.</p><div class="example">${esc(data.words)}</div>`;
+      if(i===3) content=`<p>${esc(week.task)}</p><div class="reading-tools"><button class="button" type="button" id="font-size-btn" aria-pressed="${state.largeText}">${state.largeText?'Обычный шрифт':'Увеличить текст'}</button><button class="button" type="button" id="copy-text-btn">Копировать текст</button><button class="button" type="button" id="print-btn">Печать</button></div><div class="speech-text ${state.largeText?'large':''}" id="speech-text">${formattedText(data.text)}</div><p class="speech-note">/ — короткая пауза; // — более длинная пауза. Длина пауз свободная, ориентируйся на комфорт.</p>`;
+      if(i===4) content=`<p>${esc(data.prompt)}</p><p>Если комфортно, запиши короткий фрагмент на диктофон или прослушай запись в OBS. Проверь: раздельно ли звучат слова, слышны ли окончания, не ускоряется ли конец предложения.</p>`;
+      return `<section class="stage ${checked?'checked':''}" aria-labelledby="step-title-${i}">
+        <div class="stage-head">
+          <label class="stage-check" title="${checked?'Снять отметку':'Отметить выполнение'}" aria-label="${esc(STEP_NAMES[i])}">
+            <input type="checkbox" data-step="${i}" ${checked?'checked':''} aria-label="${esc(STEP_NAMES[i])}: выполнено"><span class="check-symbol" aria-hidden="true">✓</span>
+          </label>
+          <div class="stage-heading"><h3 id="step-title-${i}">${i+1}. ${esc(STEP_NAMES[i])}</h3><p>${checked?'Этап выполнен':'Отметь после выполнения'}</p></div>
+          <span class="stage-time">${STEP_TIME[i]}</span>
+        </div><div class="stage-body">${content}</div></section>`;
+    }
+    function render() {
+      const {week:w,day:d}=state.selected; const s=getSteps(w,d),n=count(s);const overall=allStats(),weekly=weekStats(w);
+      document.getElementById('total-ring').style.setProperty('--pct',`${Math.round(overall.steps/140*100)}%`);
+      document.getElementById('total-pct').textContent=`${Math.round(overall.steps/140*100)}%`;
+      document.getElementById('days-finished').textContent=`${overall.days} из 28 дней`;
+      document.getElementById('steps-finished').textContent=`${overall.steps} из 140 этапов выполнено`;
+      updateStorageNotice();
+      document.getElementById('week-nav').innerHTML=WEEK_FOCUS.map((week,i)=>`<button type="button" data-week="${i}" class="week-btn ${i===w?'active':''}" aria-pressed="${i===w}" title="Неделя ${i+1}: ${esc(week.title)}">${i+1}</button>`).join('');
+      document.getElementById('week-desc').innerHTML=`<strong>${esc(WEEK_FOCUS[w].title)}</strong><br>${esc(WEEK_FOCUS[w].description)}`;
+      document.getElementById('day-nav').innerHTML=WEEKDAYS.map((day,i)=>{
+        const cs=getSteps(w,i),completed=count(cs);
+        return `<button type="button" data-day="${i}" class="day-btn ${i===d?'active':''}" aria-current="${i===d?'step':'false'}" title="${esc(day)} — ${completed} из 5 этапов"><span class="day-order">${i+1}</span><span class="day-name"><span class="full-day">${esc(day)}</span><span class="short-day" style="display:none">${SHORT_DAYS[i]}</span></span>${completed===5?'<span class="done-badge" aria-label="Готово">✓</span>':`<span class="mini-dots" aria-hidden="true">${cs.map(ok=>`<i class="${ok?'is-done':''}"></i>`).join('')}</span>`}</button>`;
+      }).join('');
+      document.getElementById('week-score').textContent=`${weekly.steps}/35`;
+      document.getElementById('week-fill').style.width=`${weekly.steps/35*100}%`;
+      document.getElementById('week-days-status').textContent=`${weekly.days} из 7 дней полностью завершено`;
+      const allDone=n===5;
+      document.getElementById('main').innerHTML=`
+        <div class="panel day-header">
+          <div class="header-upper"><span class="chip">Неделя ${w+1}</span><span class="chip neutral">${n===5?'Все этапы пройдены':n===0?'Этапы ещё не начаты':`${n} из 5 этапов выполнено`}</span></div>
+          <h2>${esc(WEEKDAYS[d])} · ${esc(DAYS[d].focus)}</h2>
+          <p>${esc(DAYS[d].goal)}</p>
+          <div class="day-progress"><div class="progress-track" role="progressbar" aria-label="Прогресс этого дня" aria-valuenow="${n}" aria-valuemin="0" aria-valuemax="5"><div class="progress-fill" style="width:${n*20}%"></div></div><b>${n} / 5</b></div>
+        </div>
+        <div class="section-label">Упражнения · около 10 минут</div>
+        <div class="stages">${Array.from({length:5},(_,i)=>stageHTML(i,w,d)).join('')}</div>
+        ${allDone?'<div class="completed-box" role="status"><strong>✓</strong> День завершён. Можно перейти к следующему занятию.</div>':''}
+        <div class="day-actions">
+          <button type="button" class="button" id="prev-btn" ${w===0&&d===0?'disabled':''}>← Предыдущий день</button>
+          <button type="button" class="button button-primary" id="next-btn" ${w===3&&d===6?'disabled':''}>Следующий день →</button>
+        </div>
+        <section class="panel guide" aria-label="Подсказки">
+          <h3>Как выполнять программу</h3>
+          <p>В первую неделю ориентир — разборчивость окончаний. Во вторую — спокойный естественный темп. В третью — короткие пересказы. В четвёртую — комментарии к игре или стриму без подготовленного текста.</p>
+          <ul><li>Не нужно повторять упражнение, если появляется выраженная усталость или одышка.</li><li>Для оценки прогресса полезнее сравнивать одинаковые короткие записи раз в неделю, а не пытаться говорить быстрее.</li><li>Если нарушение речи связано с мышечной слабостью, упражнения лучше согласовать с логопедом, знакомым с нервно-мышечными заболеваниями.</li></ul>
+        </section>`;
+      updateSmallScreenDayLabels();
+    }
+    function updateSmallScreenDayLabels() {
+      // Responsive CSS below switches full/short labels without changing the accessible button title.
+    }
+    document.getElementById('week-nav').addEventListener('click',e=>{
+      const btn=e.target.closest('[data-week]');if(btn){setSelected(Number(btn.dataset.week),state.selected.day);}
+    });
+    document.getElementById('day-nav').addEventListener('click',e=>{
+      const btn=e.target.closest('[data-day]');if(btn){setSelected(state.selected.week,Number(btn.dataset.day));}
+    });
+    document.getElementById('main').addEventListener('change',e=>{
+      if(!e.target.matches('input[data-step]'))return;
+      const i=Number(e.target.dataset.step),{week,day}=state.selected;
+      const key=sessionKey(week,day),v=getSteps(week,day).slice();v[i]=e.target.checked;state.sessions[key]=v;save();render();
+      const checkbox=document.querySelector(`input[data-step="${i}"]`);
+      if(checkbox) checkbox.focus({preventScroll:true});
+    });
+    document.getElementById('main').addEventListener('click',e=>{
+      const button=e.target.closest('button'); if(!button) return;
+      const {week:w,day:d}=state.selected;
+      if(button.id==='font-size-btn'){state.largeText=!state.largeText;save();render();document.getElementById('font-size-btn').focus({preventScroll:true});}
+      if(button.id==='copy-text-btn') {
+        const str=DAYS[d].text.replaceAll(' // ', ' ').replaceAll(' / ', ' ');
+        if(navigator.clipboard?.writeText) navigator.clipboard.writeText(str).then(()=>toast('Текст скопирован')).catch(()=>fallbackCopy(str));
+        else fallbackCopy(str);
+      }
+      if(button.id==='print-btn') window.print();
+      if(button.id==='next-btn' && (w*7+d<27)) {const next=w*7+d+1;setSelected(Math.floor(next/7),next%7);document.getElementById('main').scrollIntoView({block:'start'});}
+      if(button.id==='prev-btn' && (w*7+d>0)) {const prev=w*7+d-1;setSelected(Math.floor(prev/7),prev%7);document.getElementById('main').scrollIntoView({block:'start'});}
+    });
+    function fallbackCopy(value){
+      const temp=document.createElement('textarea');temp.value=value;temp.style.position='fixed';temp.style.opacity='0';document.body.append(temp);temp.select();try{document.execCommand('copy');toast('Текст скопирован');}catch(e){toast('Не удалось скопировать текст');}temp.remove();
+    }
+    let noticeTimeout;
+    function toast(message){
+      let elem=document.getElementById('toast');
+      if(!elem){elem=document.createElement('div');elem.id='toast';elem.setAttribute('role','status');elem.style.cssText='position:fixed;right:20px;bottom:20px;z-index:50;padding:12px 18px;background:#b8ffe9;color:#102927;border-radius:11px;box-shadow:0 8px 22px #0007;font-weight:700;max-width:calc(100% - 40px)';document.body.append(elem);}
+      elem.textContent=message;elem.hidden=false;clearTimeout(noticeTimeout);noticeTimeout=setTimeout(()=>{elem.hidden=true;},2800);
+    }
+    document.getElementById('export-btn').addEventListener('click',()=>{
+      const blob=new Blob([JSON.stringify({...state,exportedAt:new Date().toISOString()},null,2)],{type:'application/json'});
+      const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='dikciya-progress.json';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);
+    });
+    document.getElementById('import-btn').addEventListener('click',()=>document.getElementById('import-file').click());
+    document.getElementById('import-file').addEventListener('change',async(e)=>{
+      const file=e.target.files[0];if(!file)return;
+      try{
+        if(file.size>200000)throw Error('Файл слишком большой');
+        const input=JSON.parse(await file.text());
+        if(!input||typeof input!=='object'||!input.sessions||typeof input.sessions!=='object')throw Error('Неверный формат файла');
+        if(!confirm('Заменить текущие отметки данными из выбранного файла?'))return;
+        state=sanitize(input);save();render();toast('Прогресс восстановлен');
+      }catch(err){alert('Не удалось импортировать: '+err.message);}finally{e.target.value='';}
+    });
+    document.getElementById('reset-btn').addEventListener('click',()=>{
+      if(confirm('Удалить ВСЕ отметки за 4 недели? Отменить это действие нельзя.')){state={version:1,sessions:{},selected:{week:0,day:0},largeText:state.largeText};save();render();toast('Все отметки сброшены');}
+    });
+    // On opening, continue at the next unfinished session when the previous one is complete.
+    {
+      const {week,day}=state.selected;
+      if(count(getSteps(week,day))===5) {
+        for(let index=week*7+day+1;index<28;index++) {
+          if(count(getSteps(Math.floor(index/7),index%7))<5){state.selected={week:Math.floor(index/7),day:index%7};break;}
+        }
+      }
+    }
+    render();
+  </script>
+  <style>
+    @media (max-width:720px){.day-btn .full-day{display:none}.day-btn .short-day{display:inline!important;}}
+  </style>
+</body>
+</html>
