@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Интерактивная программа тренировки дикции: 4 недели, 7 текстов, 5 упражнений в день. Локальное сохранение прогресса.">
+  <meta name="description" content="Интерактивная программа тренировки дикции при коротком дыхании: 4 недели, прогрессия пауз, 7 текстов, 6 этапов в день. Локальное сохранение прогресса.">
   <title>Чёткая речь — тренажёр дикции на 4 недели</title>
   <style>
     :root {
@@ -93,7 +93,23 @@
     .speech-text.large {font-size:24px;line-height:2.12;}
     .speech-text .short-pause {color:#a9bcd9;padding:0 4px;user-select:none;font-weight:300;}
     .speech-text .long-pause {color:var(--accent);padding:0 7px;user-select:none;}
-    .speech-note {margin:0 0 14px;color:var(--soft);font-size:13px;}
+    .speech-note {margin:0 0 14px;color:var(--muted);font-size:13px;}
+    .breath-card {margin-top:20px;padding:17px 19px;border-radius:13px;border:1px solid #4c7978;background:linear-gradient(135deg,#173b40,#1a2b3f);}
+    .breath-card .breath-label {color:#b1f4df;font-weight:850;font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:5px;}
+    .breath-card strong {display:block;font-size:17px;line-height:1.4;margin-bottom:5px;}
+    .breath-card p {color:#cfdfeb;font-size:14px;line-height:1.5;margin:0;}
+    .breath-card .safety {color:#bfeedd;font-size:13px;margin-top:10px;}
+    .pause-examples {margin:12px 0 8px;background:#162e3d;border:1px solid #466575;border-radius:12px;padding:15px;font-size:17px;line-height:1.9;}
+    .pause-progression {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:12px;}
+    .pause-progression .milestone {padding:9px 8px;border:1px solid #3f5369;border-radius:10px;color:#afc5d6;background:#1b2d40;text-align:center;font-size:12px;line-height:1.35;}
+    .pause-progression .milestone.active {border-color:var(--accent);color:#cefff0;background:#1d4745;font-weight:800;}
+    .pause-selector {display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:12px 0;}
+    .pause-selector label {color:#e1ebf9;font-size:13px;font-weight:750;}
+    .pause-selector select {max-width:100%;font-size:14px;border:1px solid #60738a;background:#26374e;color:var(--text);padding:10px 13px;border-radius:10px;}
+    .short-pause,.long-pause,.breath-pause {white-space:nowrap;}
+    .speech-text .breath-pause {display:inline-block;color:#b1efdd;font-weight:700;font-size:17px;background:#24474d;border:1px solid #467e7e;border-radius:6px;line-height:1.3;padding:1px 6px;margin:0 3px;vertical-align:middle;}
+    .key-point {font-size:14px;color:#ccf5e9;margin-top:11px;border-left:3px solid var(--accent);padding-left:12px;}
+    .source-note {border-top:1px solid var(--line);padding-top:12px;margin-top:12px;color:var(--muted);font-size:12px;}
     .reading-tools {display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 8px;}
     .button {display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:8px 13px;border-radius:10px;font-size:13px;font-weight:750;color:var(--text);border:1px solid #50627c;background:#26374e;text-align:center;}
     .button:hover {background:#324761;}
@@ -142,6 +158,9 @@
       .speech-text.large {font-size:21px;line-height:2;}
       .stat-card {padding:19px;}
       .guide {padding:18px;}
+      .pause-progression {grid-template-columns:repeat(2,minmax(0,1fr));}
+      .breath-card {padding:14px 15px;}
+      .pause-selector select {width:100%;}
     }
     @media print {
       :root {color-scheme:light;}
@@ -150,15 +169,15 @@
       .masthead {display:block;margin-bottom:12px;}
       .intro h1 {font-size:30px;}
       .intro p {color:#555;}
-      .stat-card,.sidebar,.reading-tools,.day-actions,.footer,.guide,.section-label,.header-upper {display:none!important;}
+      .stat-card,.sidebar,.reading-tools,.day-actions,.footer,.guide,.section-label,.header-upper,.pause-progression {display:none!important;}
       .layout {display:block;}
       .panel,.stage {background:white;border:1px solid #bbb;box-shadow:none;break-inside:avoid;}
       .day-header,.stage-body,.stage-heading p,.speech-note {color:#333;}
       .day-header p,.stage-time {color:#333;}
-      .speech-text,.example {background:white;color:#111;border:1px solid #bbb;}
+      .speech-text,.example,.breath-card,.pause-examples {background:white;color:#111;border:1px solid #bbb;}
       .stage-check {background:white;border-color:#222;}
       .stage-check .check-symbol {color:#111;}
-      .speech-text .short-pause,.speech-text .long-pause {color:#333;}
+      .speech-text .short-pause,.speech-text .long-pause,.speech-text .breath-pause {color:#111;background:white;border-color:#999;}
     }
     @media (prefers-reduced-motion:reduce) {html{scroll-behavior:auto;}*,*::before,*::after{transition:none!important;}}
   </style>
@@ -169,14 +188,14 @@
       <div class="intro">
         <div class="eyebrow">Личный тренажёр речи</div>
         <h1>Говори чётче.</h1>
-        <p>Программа на 4 недели против бубнежа и проглатывания окончаний. Пять коротких этапов, тексты для чтения и отметки о выполнении — всё в одной странице.</p>
+        <p>Программа на 4 недели против бубнежа и проглатывания окончаний при коротком дыхании. Шесть коротких этапов, прогрессия речевых пауз, тексты и сохранение отметок.</p>
       </div>
       <div class="stat-card" aria-live="polite">
         <div class="ring" id="total-ring" style="--pct:0%"><span id="total-pct">0%</span></div>
         <div class="stat-copy">
           <div class="eyebrow">Общий прогресс</div>
           <strong id="days-finished">0 из 28 дней</strong>
-          <small id="steps-finished">0 из 140 этапов выполнено</small>
+          <small id="steps-finished">0 из 168 этапов выполнено</small>
           <div class="status-row" id="storage-status"><span class="status-dot"></span>Отметки сохраняются автоматически</div>
         </div>
       </div>
@@ -191,12 +210,12 @@
           <nav class="day-nav" id="day-nav" aria-label="Выбор дня"></nav>
         </div>
         <div class="panel sidebar-bottom">
-          <div class="week-stat"><span>Прогресс недели</span><span id="week-score">0/35</span></div>
+          <div class="week-stat"><span>Прогресс недели</span><span id="week-score">0/42</span></div>
           <div class="progress-track"><div class="progress-fill" id="week-fill" style="width:0%"></div></div>
           <p class="muted tiny" id="week-days-status" style="margin:12px 0 0"></p>
         </div>
         <div class="info-note">
-          <strong>Без перенапряжения.</strong> Начинай с 5 минут, если 10 минут утомляют. Не говори через силу и не стремись к максимальной громкости. При нарастании усталости сделай перерыв.
+          <strong>Короткое дыхание: пауза — до нехватки воздуха.</strong> Не удлиняй фразы ради перехода на следующую неделю. Дополнительный вдох можно делать в любой момент, без задержки дыхания и форсирования. При одышке, выраженной усталости или ослаблении голоса — прекрати занятие.
         </div>
       </aside>
       <main class="content" id="main">
@@ -205,7 +224,7 @@
     </div>
     <footer class="footer">
       <div>
-        <p>Отметки хранятся только в этом браузере на этом устройстве. Файл работает без интернета и без аккаунта. Рекомендации по замедлению речи, чёткой артикуляции и паузам: <a href="https://www.asha.org/practice-portal/clinical-topics/dysarthria-in-adults/" target="_blank" rel="noopener noreferrer">ASHA</a> и <a href="https://www.asph.nhs.uk/dysarthria" target="_blank" rel="noopener noreferrer">NHS</a>. Это самостоятельная практика, а не замена индивидуального назначения логопеда.</p>
+        <p>Отметки хранятся только в этом браузере на этом устройстве. При доступе к прежнему хранилищу браузера отметки из версии с 5 этапами переносятся автоматически (новый этап пауз остаётся непомеченным). Если файл открыт по другому адресу, перенеси отметки через экспорт и импорт JSON. Файл работает без интернета и без аккаунта. Рекомендации по коротким фразам, комфортной длине речевого отрезка и своевременным вдохам: <a href="https://www.asha.org/practice-portal/clinical-topics/dysarthria-in-adults/" target="_blank" rel="noopener noreferrer">ASHA</a>, <a href="https://www.asph.nhs.uk/dysarthria" target="_blank" rel="noopener noreferrer">NHS</a> и <a href="https://ausnmd.org/ausnmd/assets/File/Best-practice-recommendations-SLT-pNMD.pdf" target="_blank" rel="noopener noreferrer">профильные рекомендации по МДД, раздел 5.5</a>. Это самостоятельная практика, а не замена индивидуального назначения логопеда.</p>
       </div>
       <div class="tools">
         <button type="button" class="button" id="export-btn" title="Сохранить файл со всеми отметками">Экспорт прогресса</button>
@@ -221,11 +240,26 @@
     const WEEKDAYS = ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье'];
     const SHORT_DAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
     const WEEK_FOCUS = [
-      {title:'Чёткие окончания',description:'Неделя 1: медленный темп, отчётливые последние слоги и спокойные паузы.',task:'Читай медленно. Не ускоряйся, пока не услышишь окончание каждого слова.'},
-      {title:'Естественный темп',description:'Неделя 2: сохраняй чёткость, постепенно приближаясь к обычному темпу речи.',task:'Первый проход — медленно. Второй — немного естественнее, но без потери окончаний.'},
-      {title:'Пересказ своими словами',description:'Неделя 3: после чтения коротко пересказывай текст без подсказки.',task:'После чтения произнеси 3–5 предложений своими словами, делая паузы.'},
-      {title:'Речь на стриме',description:'Неделя 4: перенос навыка на живые комментарии и свободную разговорную речь.',task:'Представь, что объясняешь зрителю свои действия в игре или настройках OBS.'}
+      {title:'Замечать паузы заранее',description:'Неделя 1: очень короткие речевые отрезки, чтобы окончание каждого слова оставалось отчётливым.',task:'Читай по коротким фразам. Сделай комфортную паузу до того, как голос ослабнет.',pauseTitle:'Пауза заранее',pauseGuide:'Начинай с очень коротких отрезков: например, по 2–3 слова. Это ориентир для разметки, не обязательная норма. После каждого отрезка спокойно переведи дыхание.',pauseExample:'Сегодня я проверил / настройки компьютера. // Всё работает / достаточно стабильно.'},
+      {title:'Паузы на границе смысла',description:'Неделя 2: учись выбирать место вдоха по смыслу, не ускоряя окончание фразы.',task:'Произноси короткую смысловую группу, чётко заверши слово, затем сделай паузу. Увеличивать длину фраз не нужно.',pauseTitle:'Закончить слово → пауза',pauseGuide:'Выбирай удобные короткие смысловые части. Сначала договори последнюю согласную или слог, затем делай паузу. Если воздух заканчивается раньше — остановись раньше.',pauseExample:'Я проверил настройки / и включил микрофон. // Теперь можно / начинать трансляцию.'},
+      {title:'Самостоятельная разметка',description:'Неделя 3: планируй места для вдоха до чтения, добавляй их по необходимости.',task:'Перед чтением просмотри предложение и реши, где удобнее остановиться. Затем сравни план с реальной потребностью во вдохе.',pauseTitle:'Планировать и корректировать',pauseGuide:'Перед каждым предложением наметь хотя бы одно место для паузы. Читай, свободно добавляя другие. Цель — перестать договаривать на остатке воздуха.',pauseExample:'Сегодня я проверил / звук в OBS. // Несколько параметров / пришлось изменить.'},
+      {title:'Автоматические паузы в беседе',description:'Неделя 4: переноси паузы в свободную речь и комментарии на стриме.',task:'Комментируй действие несколькими короткими фразами. Если мысль длинная, раздели её на два предложения и сделай вдох.',pauseTitle:'Паузы в реальном разговоре',pauseGuide:'Потренируйся комментировать игру короткими предложениями. Делай вдох до ослабления голоса; не пытайся говорить больше слов на одном выдохе.',pauseExample:'Я открыл настройки. / Сейчас проверю звук. // Всё работает. / Продолжаем.'}
     ];
+    const PAUSE_DAYS = [
+      'Понедельник: намеренно сделай паузу после первой короткой смысловой части.',
+      'Вторник: перед паузой убедись, что полностью произнёс окончание последнего слова.',
+      'Среда: перед техническим или длинным словом оставь запас воздуха; при необходимости сделай паузу раньше.',
+      'Четверг: разделяй длинное предложение на две короткие законченные мысли.',
+      'Пятница: следи, не становится ли конец предложения тише; остановись до этого момента.',
+      'Суббота: проверь этот навык в небольшом спонтанном рассказе.',
+      'Воскресенье: сравни запись с прошлой неделей; оцени не длину фразы, а чёткость и комфорт.'
+    ];
+    const PAUSE_MODES = {
+      short: {label:'Частые подсказки · примерно 2–3 слова',max:3},
+      medium: {label:'Умеренные подсказки · примерно 4–5 слов',max:5},
+      natural: {label:'Только смысловые паузы в тексте',max:0}
+    };
+    const DEFAULT_PAUSE_MODES = ['short','short','short','short'];
     const DAYS = [
       {
         focus:'Окончания глаголов',
@@ -284,25 +318,34 @@
         text:`Сегодня я проверил настройки компьютера / и подготовил оборудование к трансляции. // Сначала я включил микрофон / и настроил уровень громкости. // Затем открыл программу / и проверил все источники звука. // Некоторые параметры пришлось изменить / потому что они работали неправильно. // Теперь всё настроено / и можно начинать трансляцию. // Осталось проверить изображение / убедиться, что зрители меня хорошо слышат / и спокойно запустить игру.`
       }
     ];
-    const STEP_NAMES = ['Подготовка','Слоги и согласные','Окончания слов','Чтение вслух','Пересказ и самопроверка'];
-    const STEP_TIME = ['1 мин','2 мин','2 мин','3 мин','2 мин'];
+    const STEP_NAMES = ['Подготовка','Слоги и согласные','Окончания слов','Паузы и короткое дыхание','Чтение вслух','Пересказ и самопроверка'];
+    const STEP_TIME = ['1 мин','1 мин','1 мин','2 мин','3 мин','2 мин'];
+    const STEP_COUNT = STEP_NAMES.length;
     const esc = str => String(str).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const sessionKey = (w,d)=>`w${w}d${d}`;
-    const blank = () => Array.from({length:5},()=>false);
+    const blank = () => Array.from({length:STEP_COUNT},()=>false);
     let storageOK = true;
-    let state = {version:1, sessions:{}, selected:{week:0,day:0}, largeText:false};
+    let state = {version:2, sessions:{}, selected:{week:0,day:0}, largeText:false, pauseModes:DEFAULT_PAUSE_MODES.slice()};
 
     function sanitize(input) {
-      const clean = {version:1,sessions:{},selected:{week:0,day:0},largeText:false};
+      const clean = {version:2,sessions:{},selected:{week:0,day:0},largeText:false,pauseModes:DEFAULT_PAUSE_MODES.slice()};
       if (!input || typeof input!=='object') return clean;
       if (input.sessions && typeof input.sessions==='object') {
         for (let w=0;w<4;w++) for(let d=0;d<7;d++) {
           const k=sessionKey(w,d), s=input.sessions[k];
-          if (Array.isArray(s)) clean.sessions[k]=Array.from({length:5},(_,i)=>s[i]===true);
+          if (Array.isArray(s)) {
+            // v1 stored 5 steps. Migrate without losing completed checkboxes:
+            // the new breath-pause step is inserted between endings and reading.
+            const migrated = s.length===5 ? [s[0],s[1],s[2],false,s[3],s[4]] : s;
+            clean.sessions[k]=Array.from({length:STEP_COUNT},(_,i)=>migrated[i]===true);
+          }
         }
       }
       if(input.selected && Number.isInteger(input.selected.week) && Number.isInteger(input.selected.day) && input.selected.week>=0 && input.selected.week<4 && input.selected.day>=0 && input.selected.day<7) clean.selected={week:input.selected.week,day:input.selected.day};
       clean.largeText = input.largeText===true;
+      if (Array.isArray(input.pauseModes)) {
+        clean.pauseModes=DEFAULT_PAUSE_MODES.map((def,i)=>Object.prototype.hasOwnProperty.call(PAUSE_MODES,input.pauseModes[i])?input.pauseModes[i]:def);
+      }
       return clean;
     }
     try {
@@ -323,26 +366,40 @@
     }
     function allStats() {
       let steps=0,days=0;
-      for(let w=0;w<4;w++)for(let d=0;d<7;d++){let n=count(getSteps(w,d));steps+=n;if(n===5)days++;}
+      for(let w=0;w<4;w++)for(let d=0;d<7;d++){let n=count(getSteps(w,d));steps+=n;if(n===STEP_COUNT)days++;}
       return {steps,days};
     }
     function weekStats(w) {
       let steps=0,days=0;
-      for(let d=0;d<7;d++){const n=count(getSteps(w,d));steps+=n;if(n===5)days++;}
+      for(let d=0;d<7;d++){const n=count(getSteps(w,d));steps+=n;if(n===STEP_COUNT)days++;}
       return {steps,days};
     }
     function setSelected(w,d) {state.selected={week:w,day:d};save();render();}
-    function formattedText(raw) {
-      return esc(raw).replaceAll(' // ',' <span class="long-pause" aria-label="длинная пауза">//</span> ').replaceAll(' / ',' <span class="short-pause" aria-label="короткая пауза">/</span> ');
+    function formattedText(raw,mode) {
+      const max=PAUSE_MODES[mode]?.max || 0;
+      return raw.split(/\s+(\/\/|\/)\s+/).map(piece=>{
+        if(piece==='//') return ' <span class="long-pause" aria-label="конец предложения; свободная пауза">//</span> ';
+        if(piece==='/') return ' <span class="short-pause" aria-label="смысловая пауза">/</span> ';
+        const tokens=piece.trim().split(/\s+/).filter(Boolean);
+        if(!max) return esc(tokens.join(' '));
+        // Insert OPTIONAL extra breath cues, not mandatory phrases per breath.
+        const groups=[];
+        for(let i=0;i<tokens.length;i+=max)groups.push(esc(tokens.slice(i,i+max).join(' ')));
+        return groups.join(' <span class="breath-pause" aria-label="дополнительная пауза при необходимости">↷</span> ');
+      }).join('');
+    }
+    function pauseModeOptions(selected){
+      return Object.entries(PAUSE_MODES).map(([key,value])=>`<option value="${key}" ${selected===key?'selected':''}>${esc(value.label)}</option>`).join('');
     }
     function stageHTML(i,w,d) {
-      const data=DAYS[d],checked=getSteps(w,d)[i], week=WEEK_FOCUS[w];
+      const data=DAYS[d],checked=getSteps(w,d)[i],week=WEEK_FOCUS[w],mode=state.pauseModes[w];
       let content='';
-      if(i===0) content='<p>Расположись удобно, поддерживая голову и спину. Произнеси 2–3 простые фразы привычным голосом. Никаких силовых упражнений и задержек дыхания.</p>';
+      if(i===0) content='<p>Расположись удобно, поддерживая голову и спину. Произнеси 2–3 простые фразы привычным голосом. Никаких силовых упражнений, форсированных вдохов и задержек дыхания.</p>';
       if(i===1) content=`<p>Произноси сочетания медленно, не сливая звуки. Достаточно 2–3 спокойных повторений.</p><div class="example">${esc(data.syllables)}</div>`;
-      if(i===2) content=`<p>Сначала произнеси каждое слово отдельно, затем в короткой фразе. Обращай внимание на <strong>последние слоги</strong>.</p><div class="example">${esc(data.words)}</div>`;
-      if(i===3) content=`<p>${esc(week.task)}</p><div class="reading-tools"><button class="button" type="button" id="font-size-btn" aria-pressed="${state.largeText}">${state.largeText?'Обычный шрифт':'Увеличить текст'}</button><button class="button" type="button" id="copy-text-btn">Копировать текст</button><button class="button" type="button" id="print-btn">Печать</button></div><div class="speech-text ${state.largeText?'large':''}" id="speech-text">${formattedText(data.text)}</div><p class="speech-note">/ — короткая пауза; // — более длинная пауза. Длина пауз свободная, ориентируйся на комфорт.</p>`;
-      if(i===4) content=`<p>${esc(data.prompt)}</p><p>Если комфортно, запиши короткий фрагмент на диктофон или прослушай запись в OBS. Проверь: раздельно ли звучат слова, слышны ли окончания, не ускоряется ли конец предложения.</p>`;
+      if(i===2) content=`<p>Сначала произнеси каждое слово отдельно, затем в короткой фразе. Следи за <strong>последними слогами</strong>.</p><div class="example">${esc(data.words)}</div>`;
+      if(i===3) content=`<p><strong>${esc(week.pauseTitle)}.</strong> ${esc(week.pauseGuide)}</p><div class="pause-examples">${esc(week.pauseExample)}</div><p>${esc(PAUSE_DAYS[d])}</p><p class="key-point">Чекбокс ставь, когда отработал паузы. Достаточно 2–3 комфортных повторений. Если воздуха не хватает, пауза нужна раньше, а не позже.</p>`;
+      if(i===4) content=`<p>${esc(week.task)}</p><div class="pause-selector"><label for="pause-mode">Подсказки для пауз:</label><select id="pause-mode" aria-label="Частота подсказок для пауз">${pauseModeOptions(mode)}</select></div><div class="reading-tools"><button class="button" type="button" id="font-size-btn" aria-pressed="${state.largeText}">${state.largeText?'Обычный шрифт':'Увеличить текст'}</button><button class="button" type="button" id="copy-text-btn">Копировать текст</button><button class="button" type="button" id="print-btn">Печать</button></div><div class="speech-text ${state.largeText?'large':''}" id="speech-text">${formattedText(data.text,mode)}</div><p class="speech-note"><b>↷</b> — дополнительная возможность вдохнуть; <b>/</b> — смысловая пауза; <b>//</b> — конец предложения. Ни один знак не требует задерживать дыхание или говорить без вдоха до следующей отметки. Добавляй паузы в любой момент.</p>`;
+      if(i===5) content=`<p>${esc(data.prompt)}</p><p>Рассказывай короткими фразами. Заранее планируй вдох перед следующей мыслью; говори до ослабления голоса, а не после него. По желанию сделай короткую запись и оцени чёткость окончаний.</p>`;
       return `<section class="stage ${checked?'checked':''}" aria-labelledby="step-title-${i}">
         <div class="stage-head">
           <label class="stage-check" title="${checked?'Снять отметку':'Отметить выполнение'}" aria-label="${esc(STEP_NAMES[i])}">
@@ -353,31 +410,40 @@
         </div><div class="stage-body">${content}</div></section>`;
     }
     function render() {
-      const {week:w,day:d}=state.selected; const s=getSteps(w,d),n=count(s);const overall=allStats(),weekly=weekStats(w);
-      document.getElementById('total-ring').style.setProperty('--pct',`${Math.round(overall.steps/140*100)}%`);
-      document.getElementById('total-pct').textContent=`${Math.round(overall.steps/140*100)}%`;
+      const {week:w,day:d}=state.selected; const week=WEEK_FOCUS[w];const s=getSteps(w,d),n=count(s);const overall=allStats(),weekly=weekStats(w);
+      document.getElementById('total-ring').style.setProperty('--pct',`${Math.round(overall.steps/(28*STEP_COUNT)*100)}%`);
+      document.getElementById('total-pct').textContent=`${Math.round(overall.steps/(28*STEP_COUNT)*100)}%`;
       document.getElementById('days-finished').textContent=`${overall.days} из 28 дней`;
-      document.getElementById('steps-finished').textContent=`${overall.steps} из 140 этапов выполнено`;
+      document.getElementById('steps-finished').textContent=`${overall.steps} из ${28*STEP_COUNT} этапов выполнено`;
       updateStorageNotice();
       document.getElementById('week-nav').innerHTML=WEEK_FOCUS.map((week,i)=>`<button type="button" data-week="${i}" class="week-btn ${i===w?'active':''}" aria-pressed="${i===w}" title="Неделя ${i+1}: ${esc(week.title)}">${i+1}</button>`).join('');
       document.getElementById('week-desc').innerHTML=`<strong>${esc(WEEK_FOCUS[w].title)}</strong><br>${esc(WEEK_FOCUS[w].description)}`;
       document.getElementById('day-nav').innerHTML=WEEKDAYS.map((day,i)=>{
         const cs=getSteps(w,i),completed=count(cs);
-        return `<button type="button" data-day="${i}" class="day-btn ${i===d?'active':''}" aria-current="${i===d?'step':'false'}" title="${esc(day)} — ${completed} из 5 этапов"><span class="day-order">${i+1}</span><span class="day-name"><span class="full-day">${esc(day)}</span><span class="short-day" style="display:none">${SHORT_DAYS[i]}</span></span>${completed===5?'<span class="done-badge" aria-label="Готово">✓</span>':`<span class="mini-dots" aria-hidden="true">${cs.map(ok=>`<i class="${ok?'is-done':''}"></i>`).join('')}</span>`}</button>`;
+        return `<button type="button" data-day="${i}" class="day-btn ${i===d?'active':''}" aria-current="${i===d?'step':'false'}" title="${esc(day)} — ${completed} из ${STEP_COUNT} этапов"><span class="day-order">${i+1}</span><span class="day-name"><span class="full-day">${esc(day)}</span><span class="short-day" style="display:none">${SHORT_DAYS[i]}</span></span>${completed===STEP_COUNT?'<span class="done-badge" aria-label="Готово">✓</span>':`<span class="mini-dots" aria-hidden="true">${cs.map(ok=>`<i class="${ok?'is-done':''}"></i>`).join('')}</span>`}</button>`;
       }).join('');
-      document.getElementById('week-score').textContent=`${weekly.steps}/35`;
-      document.getElementById('week-fill').style.width=`${weekly.steps/35*100}%`;
+      document.getElementById('week-score').textContent=`${weekly.steps}/${7*STEP_COUNT}`;
+      document.getElementById('week-fill').style.width=`${weekly.steps/(7*STEP_COUNT)*100}%`;
       document.getElementById('week-days-status').textContent=`${weekly.days} из 7 дней полностью завершено`;
-      const allDone=n===5;
+      const allDone=n===STEP_COUNT;
       document.getElementById('main').innerHTML=`
         <div class="panel day-header">
-          <div class="header-upper"><span class="chip">Неделя ${w+1}</span><span class="chip neutral">${n===5?'Все этапы пройдены':n===0?'Этапы ещё не начаты':`${n} из 5 этапов выполнено`}</span></div>
+          <div class="header-upper"><span class="chip">Неделя ${w+1}</span><span class="chip neutral">${n===STEP_COUNT?'Все этапы пройдены':n===0?'Этапы ещё не начаты':`${n} из ${STEP_COUNT} этапов выполнено`}</span></div>
           <h2>${esc(WEEKDAYS[d])} · ${esc(DAYS[d].focus)}</h2>
           <p>${esc(DAYS[d].goal)}</p>
-          <div class="day-progress"><div class="progress-track" role="progressbar" aria-label="Прогресс этого дня" aria-valuenow="${n}" aria-valuemin="0" aria-valuemax="5"><div class="progress-fill" style="width:${n*20}%"></div></div><b>${n} / 5</b></div>
+          <div class="day-progress"><div class="progress-track" role="progressbar" aria-label="Прогресс этого дня" aria-valuenow="${n}" aria-valuemin="0" aria-valuemax="${STEP_COUNT}"><div class="progress-fill" style="width:${n/STEP_COUNT*100}%"></div></div><b>${n} / ${STEP_COUNT}</b></div>
+          <div class="breath-card" aria-label="Прогрессия навыка речевых пауз">
+            <div class="breath-label">Главный навык · прогрессия пауз</div>
+            <strong>${esc(week.pauseTitle)}</strong>
+            <p>${esc(week.pauseGuide)}</p>
+            <div class="pause-progression" aria-label="Четыре недели развития навыка пауз">
+              ${['1 · Пауза заранее','2 · По смыслу','3 · Свой план','4 · Живая речь'].map((label,i)=>`<span class="milestone ${i===w?'active':''}">${esc(label)}</span>`).join('')}
+            </div>
+            <p class="safety">Переход на следующую неделю не означает увеличения длины фразы на одном выдохе.</p>
+          </div>
         </div>
         <div class="section-label">Упражнения · около 10 минут</div>
-        <div class="stages">${Array.from({length:5},(_,i)=>stageHTML(i,w,d)).join('')}</div>
+        <div class="stages">${Array.from({length:STEP_COUNT},(_,i)=>stageHTML(i,w,d)).join('')}</div>
         ${allDone?'<div class="completed-box" role="status"><strong>✓</strong> День завершён. Можно перейти к следующему занятию.</div>':''}
         <div class="day-actions">
           <button type="button" class="button" id="prev-btn" ${w===0&&d===0?'disabled':''}>← Предыдущий день</button>
@@ -385,8 +451,8 @@
         </div>
         <section class="panel guide" aria-label="Подсказки">
           <h3>Как выполнять программу</h3>
-          <p>В первую неделю ориентир — разборчивость окончаний. Во вторую — спокойный естественный темп. В третью — короткие пересказы. В четвёртую — комментарии к игре или стриму без подготовленного текста.</p>
-          <ul><li>Не нужно повторять упражнение, если появляется выраженная усталость или одышка.</li><li>Для оценки прогресса полезнее сравнивать одинаковые короткие записи раз в неделю, а не пытаться говорить быстрее.</li><li>Если нарушение речи связано с мышечной слабостью, упражнения лучше согласовать с логопедом, знакомым с нервно-мышечными заболеваниями.</li></ul>
+          <p>Прогрессия пауз: неделя 1 — делать паузу заранее; неделя 2 — связывать паузы со смыслом и окончаниями; неделя 3 — самостоятельно размечать места вдоха; неделя 4 — переносить навык в повседневную речь и стримы.</p>
+          <ul><li>Паузы можно делать чаще, чем показывают символы. Счёт слов в настройках — только наглядная подсказка, не лечебная норма.</li><li>Не нужно повторять упражнение, если появляется выраженная усталость или одышка.</li><li>Для оценки прогресса полезнее сравнивать одинаковые короткие записи раз в неделю, а не пытаться говорить быстрее.</li><li>Если нарушение речи связано с мышечной слабостью, упражнения лучше согласовать с логопедом, знакомым с нервно-мышечными заболеваниями.</li></ul>
         </section>`;
       updateSmallScreenDayLabels();
     }
@@ -405,6 +471,15 @@
       const key=sessionKey(week,day),v=getSteps(week,day).slice();v[i]=e.target.checked;state.sessions[key]=v;save();render();
       const checkbox=document.querySelector(`input[data-step="${i}"]`);
       if(checkbox) checkbox.focus({preventScroll:true});
+    });
+    document.getElementById('main').addEventListener('change',e=>{
+      if(e.target.id!=='pause-mode')return;
+      const mode=e.target.value;
+      if(!Object.prototype.hasOwnProperty.call(PAUSE_MODES,mode))return;
+      const {week}=state.selected;
+      state.pauseModes[week]=mode;
+      save();render();
+      document.getElementById('pause-mode')?.focus({preventScroll:true});
     });
     document.getElementById('main').addEventListener('click',e=>{
       const button=e.target.closest('button'); if(!button) return;
@@ -444,14 +519,14 @@
       }catch(err){alert('Не удалось импортировать: '+err.message);}finally{e.target.value='';}
     });
     document.getElementById('reset-btn').addEventListener('click',()=>{
-      if(confirm('Удалить ВСЕ отметки за 4 недели? Отменить это действие нельзя.')){state={version:1,sessions:{},selected:{week:0,day:0},largeText:state.largeText};save();render();toast('Все отметки сброшены');}
+      if(confirm('Удалить ВСЕ отметки за 4 недели? Отменить это действие нельзя.')){state={version:2,sessions:{},selected:{week:0,day:0},largeText:state.largeText,pauseModes:DEFAULT_PAUSE_MODES.slice()};save();render();toast('Все отметки сброшены');}
     });
     // On opening, continue at the next unfinished session when the previous one is complete.
     {
       const {week,day}=state.selected;
-      if(count(getSteps(week,day))===5) {
+      if(count(getSteps(week,day))===STEP_COUNT) {
         for(let index=week*7+day+1;index<28;index++) {
-          if(count(getSteps(Math.floor(index/7),index%7))<5){state.selected={week:Math.floor(index/7),day:index%7};break;}
+          if(count(getSteps(Math.floor(index/7),index%7))<STEP_COUNT){state.selected={week:Math.floor(index/7),day:index%7};break;}
         }
       }
     }
